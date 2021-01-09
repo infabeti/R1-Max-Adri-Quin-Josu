@@ -1,4 +1,6 @@
-jsonCallback([ {
+{
+"espacio-natural": [
+{
   "documentName" : "Armañón",
   "turismDescription" : "Las Peñas de Ranero, al oeste de Armañón, constituyen la referencia paisaj&i...",
   "turismDescription" : "<p>Las Pe&ntilde as de Ranero, al oeste de <a href=\"https://turismo.euskadi.eus/es/espacios-naturales/parque-natural-armanon/aa30-12375/es/\" title=\"Parque Natural de Armañón\">Arma&ntilde &oacute n</a>, constituyen la referencia paisaj&iacute stica m&aacute s notable de todo el Valle de Karrantza, uno de los dos municipios que forman parte de este Espacio Natural Protegido.</p><p>&nbsp </p><p>En el otro municipio, Trucios-Turtzioz, encontramos en su parte oriental el gran lapiaz de Los Jorrios, donde destaca el gran encinar que tapiza su falda. Esta joya del noroeste de Bizkaia presenta un conjunto de elevaciones monta&ntilde osas que dibujan un paisaje abrupto y calizo formado por un rico mosaico de h&aacute bitats. La actividad ganadera secular ha formado pastizales, prados y setos, pero tambi&eacute n hay sitio para los bosques aut&oacute ctonos, como encinares cant&aacute bricos, robledales y hayedos.</p><p>&nbsp </p><p>Es precisamente la coexistencia de este rico mosaico lo que permite una amplia y rica presencia de aves, que combina comunidades ornitol&oacute gicas de ambientes de roquedo, landas y pastizales y ambientes forestales, pudiendo disfrutar desde el alimoche, el roquero solitario o la curruca rabilarga, al gavil&aacute n y el picamaderos&nbsp negro.</p><p>&nbsp </p><p><strong>Figuras de protecci&oacute n:&nbsp </strong>Red Natura 2000 - Parque Natural.</p><p><br /><br/><strong>Recorridos ornitol&oacute gicos:</strong><br /><br/>- ENCINAR DE SOPE&Ntilde A. &Aacute rea recreativa El Suceso (Bizkaia)<br /><br/>- ALREDEDORES DE POZALAGUA. Parketxe Arma&ntilde &oacute n (Bizkaia)</p>",
@@ -4298,4 +4300,6 @@ jsonCallback([ {
   "dataXML" : "https://opendata.euskadi.eus/contenidos/g_naturaleza/0000003023_g1_rec_turismo/es_3023/data/3023_openData.xml",
   "metadataXML" : "https://opendata.euskadi.eus/contenidos/g_naturaleza/0000003023_g1_rec_turismo/r01Index/0000003023_g1_rec_turismo-idxContent.xml",
   "zipFile" : "https://opendata.euskadi.eus/contenidos/g_naturaleza/0000003023_g1_rec_turismo/opendata/0000003023_g1_rec_turismo.zip"
-} ]);
+} 
+]
+}

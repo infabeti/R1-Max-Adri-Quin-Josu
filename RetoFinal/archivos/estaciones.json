@@ -1,4 +1,6 @@
-jsonCallback([ {
+{
+"estacion": [
+{
   "documentName" : "Abetxuko",
   "documentDescription" : "Abetxuko",
   "latitudelongitude" : "",
@@ -2518,4 +2520,6 @@ jsonCallback([ {
   "dataXML" : "https://opendata.euskadi.eus/contenidos/estacion_meteo/station_c00a/es_station/data/es_r01dpd014d6c5c4db31a1526cd2df73adbd4d2ef8",
   "metadataXML" : "https://opendata.euskadi.eus/contenidos/estacion_meteo/station_c00a/r01Index/station_c00a-idxContent.xml",
   "zipFile" : "https://opendata.euskadi.eus/contenidos/estacion_meteo/station_c00a/opendata/station_c00a.zip"
-} ]);
+}
+]
+}
