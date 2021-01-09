@@ -17,7 +17,8 @@ import org.json.JSONObject;
 /*
  * Convierte archivos de tipo JSON a XML en cuatro pasos:
  * 1) Lee el JSON y lo pasa a un String
- * 2) Renombrar etiquetas duplicadas en el string (Nota: est· particularizado para el archivo espacios-naturales.json. Mejora --> Generalizar soluciÛn)
+ * 2) Renombrar etiquetas duplicadas en el string y borrar las vacias
+ * 	(Nota: est√° particularizado para el archivo espacios-naturales.json. Mejora --> Generalizar soluci√≥n)
  * 3) Utiliza un objeto json de la libreria org.json para convertirlo a formato XML y guardarlo en un string
  * 4) Escribe el archivo de salida 
  */
@@ -32,28 +33,28 @@ public class JSONtoXML {
 	String json = leerArchivo(direccionArchivoEntrada); // Lee el archivo
 	long tiempoFinal = System.currentTimeMillis();
 	long duracion = tiempoFinal - tiempoInicial;
-	System.out.println("DuraciÛn de la lectura del archivo: " + duracion); // EstadÌstica
+	System.out.println("Duraci√≥n de la lectura del archivo: " + duracion); // Estad√≠stica
 
-	// Eliminar etiquetas duplicadas
+	// Eliminar etiquetas duplicadas y borrar las vacias
 	tiempoInicial = System.currentTimeMillis();
 	String jsonCorregido = eliminarEtiquetasDuplicadas(json);
 	tiempoFinal = System.currentTimeMillis();
 	duracion = tiempoFinal - tiempoInicial;
-	System.out.println("DuraciÛn de renombrar etiquetas duplicadas: " + duracion); // EstadÌstica
+	System.out.println("Duraci√≥n de renombrar etiquetas duplicadas y borrar vacias: " + duracion); // Estad√≠stica
 
 	// Convierte JSON a XML
 	tiempoInicial = System.currentTimeMillis();
 	String xml = convertir(jsonCorregido, "root");// Establezco el nombre del tag raiz del XML
 	tiempoFinal = System.currentTimeMillis();
 	duracion = tiempoFinal - tiempoInicial;
-	System.out.println("DuraciÛn de la conversiÛn: " + duracion); // EstadÌstica
+	System.out.println("Duraci√≥n de la conversi√≥n: " + duracion); // Estad√≠stica
 	
 	// Escribe el archivo XML
 	tiempoInicial = System.currentTimeMillis();
 	escribirArchivo(direccionArchivoSalida, xml);
 	tiempoFinal = System.currentTimeMillis();
 	duracion = tiempoFinal - tiempoInicial;
-	System.out.println("DuraciÛn de escritura de archivo: " + duracion); // EstadÌstica
+	System.out.println("Duraci√≥n de escritura de archivo: " + duracion); // Estad√≠stica
     }
 
     public static String leerArchivo(String rutaArchivo) throws FileNotFoundException, IOException {
@@ -65,7 +66,7 @@ public class JSONtoXML {
 
 	int r = 0;
 	while ((r = lector.read()) != -1) {// OJO! uso read() mejor que readLine()
-					   // porque puedo procesar archivos m·s largos con read()
+					   // porque puedo procesar archivos m√°s largos con read()
 	    char ch = (char) r;
 	    acumuladoCadena.append(ch);
 	}
@@ -78,6 +79,7 @@ public class JSONtoXML {
 
     public static String eliminarEtiquetasDuplicadas(String archivo) {
 	String archivoCorregido = "";
+	String archivoFinal = "";
 	int contador1 = 0;
 	int contador2 = 0;
 	int contador3 = 0;
@@ -87,7 +89,6 @@ public class JSONtoXML {
 	for (int i = 0; i < campos.length; i++) {
 	    lineas = campos[i].split(" : ");
 	    for (int j = 0; j < lineas.length; j++) {
-		
 		if (lineas[j].toString().contains("\"turismDescription\"") && contador1 > 0) {
 		    archivoCorregido += "\"turismDescription" + contador1 + "\"" + " : ";
 		    contador1++;
@@ -118,8 +119,16 @@ public class JSONtoXML {
 	    contador3 = 0;
 	    archivoCorregido += "}";
 	}
+	
+	//Eliminar etiquetas vacias
+	lineas = archivoCorregido.split(",");
+	for (int i = 0; i < lineas.length; i++) {
+	    if (!lineas[i].toString().contains("\"\"")) {
+		archivoFinal += lineas[i] + ",";
+	    }
+	}
 
-	return archivoCorregido;
+	return archivoFinal;
     }
 
     public static String convertir(String json, String raiz) throws JSONException {
