@@ -36,5 +36,16 @@ public class TestJSONtoXML {
 		String ResultadoEsperado="{Test }{Test }{Test }{Test }]); ]\n"+ "}";
 		assertEquals(Resultado,ResultadoEsperado);
 	}
-
+	@Test
+	public void renombrarEtiquetasDuplicadasTestCompleto() {
+		String Contenido="{\"turismDescription\" : \"El embalse de Maroño"
+				+ "  \"turismDescription\" : \"El embalse de Matilde"
+				+ "\"phone\" : \"\",\"phone\" : \"\","
+				+ "\"address\" : \"\",\"address\" : \"\",}]);";
+		String Resultado=json.renombrarEtiquetasDuplicadas(Contenido);
+		System.out.println(Resultado);
+		String ResultadoEsperado=" }]); ]\n"+ "}";
+		assertEquals(Resultado,ResultadoEsperado);
+	}
+	
 }
