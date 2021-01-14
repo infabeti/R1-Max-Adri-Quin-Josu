@@ -43,9 +43,15 @@ public class TestJSONtoXML {
 				+ "\"phone\" : \"\",\"phone\" : \"\","
 				+ "\"address\" : \"\",\"address\" : \"\",}]);";
 		String Resultado=json.renombrarEtiquetasDuplicadas(Contenido);
-		System.out.println(Resultado);
 		String ResultadoEsperado=" }]); ]\n"+ "}";
 		assertEquals(Resultado,ResultadoEsperado);
 	}
-	
+	@Test
+	public void convertirTEST() {
+		String Contenido="{}";
+		String Resultado=json.convertir(Contenido,"root");
+		System.out.println(Resultado);
+		String ResultadoEsperado="<?xml version=\"1.0\" encoding=\"UTF-8\"?><root></root>";
+		assertEquals(Resultado,ResultadoEsperado);
+	}
 }
