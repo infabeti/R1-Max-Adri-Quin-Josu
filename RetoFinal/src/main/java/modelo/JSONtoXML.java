@@ -20,7 +20,7 @@ import org.json.JSONObject;
  * 2) Prepara el archivo, quitando cabecera, añadiendo contenedor y arreglando el final
  * 3) Renombrar etiquetas duplicadas en el string y borrar las vacias
  * 4) Utiliza un objeto json de la libreria org.json para convertirlo a formato XML y guardarlo en un string
- * 5) Escribe el archivo de salida 
+ * 5) Escribe el archivo de salida
  */
 
 public class JSONtoXML {
@@ -68,24 +68,30 @@ public class JSONtoXML {
 	}
     }
 
-    public static String leerArchivo(String rutaArchivo) throws FileNotFoundException, IOException {
+    public static String leerArchivo(String rutaArchivo) {
 	StringBuilder acumuladoCadena = new StringBuilder();
-	InputStream in = new FileInputStream(rutaArchivo);
-//	Charset encoding = Charset.defaultCharset();
-	Charset encoding = Charset.forName("UTF-8"); // Codifico el archivo con UTF-8
+	try {
+		InputStream in;
+		in = new FileInputStream(rutaArchivo);
+//		Charset encoding = Charset.defaultCharset();
+		Charset encoding = Charset.forName("UTF-8"); // Codifico el archivo con UTF-8
 
-	Reader lector = new InputStreamReader(in, encoding);
+		Reader lector = new InputStreamReader(in, encoding);
+		
+		int r = 0;
+		while ((r = lector.read()) != -1) {// OJO! uso read() mejor que readLine()
+			// porque puedo procesar archivos más largos con read()
+			char ch = (char) r;
+			acumuladoCadena.append(ch);
+		}
 
-	int r = 0;
-	while ((r = lector.read()) != -1) {// OJO! uso read() mejor que readLine()
-	    // porque puedo procesar archivos más largos con read()
-	    char ch = (char) r;
-	    acumuladoCadena.append(ch);
+		in.close();
+		lector.close();
+	} catch (FileNotFoundException e) {
+		System.out.println(e.getMessage());
+	}catch (IOException e) {
+		System.out.println(e.getMessage());
 	}
-
-	in.close();
-	lector.close();
-
 	return acumuladoCadena.toString();
     }
 
