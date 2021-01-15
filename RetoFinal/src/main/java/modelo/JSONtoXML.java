@@ -28,7 +28,7 @@ public class JSONtoXML {
     static String[] contenedores = { "index", "estación", "espacio-natural", "municipio" };
 
     public static void main(String[] args) throws FileNotFoundException, IOException, JSONException {
-	for (int num = 0; num < 4; num++) {
+	for (int num = 0; num < archivos.length; num++) {
 	    String direccionArchivoEntrada = "./archivos//" + archivos[num] + ".json";
 	    String direccionArchivoSalida = "./archivos//" + archivos[num] + ".xml";
 	    // Lee el archivo JSON
@@ -37,7 +37,7 @@ public class JSONtoXML {
 	    long tiempoFinal = System.currentTimeMillis();
 	    long duracion = tiempoFinal - tiempoInicial;
 	    System.out.println("Duración de la lectura del archivo: " + duracion + " mlseg"); // Estadística
-
+	    // Prepara el archivo: quita cabecera
 	    tiempoInicial = System.currentTimeMillis();
 	    String jsonPreparado = prepararArchivo(jsonOrigen, contenedores[num]);
 	    tiempoFinal = System.currentTimeMillis();

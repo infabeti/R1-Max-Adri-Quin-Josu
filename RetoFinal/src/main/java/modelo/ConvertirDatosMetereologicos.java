@@ -3,7 +3,7 @@ package modelo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class DescargarDatosMetereologicos {
+public class ConvertirDatosMetereologicos {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		JSONtoXML conversor = new JSONtoXML();
@@ -26,7 +26,7 @@ public class DescargarDatosMetereologicos {
 		}
 		direcciones = listadoUrls.split(",");
 
-		// Obtiene los nombres de los archivos
+		// Saca los nombres de los archivos de las direcciones
 		for (int i = 0; i < direcciones.length; i++) {
 			auxiliar = direcciones[i].split("/");
 			paso = auxiliar[auxiliar.length - 1];
@@ -35,8 +35,6 @@ public class DescargarDatosMetereologicos {
 		archivos = acum.split(",");
 
 		String ruta = "./archivos/calidadAire/";
-
-		descarga.descargarJSON(direcciones, archivos, ruta);
 
 		// Convierte los archivos .JSON a .XML
 		String nombreArchivos = "";
