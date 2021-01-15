@@ -190,11 +190,17 @@ public class JSONtoXML {
 	return xml;
     }
 
-    public static void escribirArchivo(String rutaArchivo, String salida) throws FileNotFoundException, IOException {
-	FileWriter escritor = new FileWriter(rutaArchivo);
-	try (BufferedWriter out = new BufferedWriter(escritor)) {
-	    out.write(salida);
+    public static void escribirArchivo(String rutaArchivo, String salida){
+
+	try {
+		FileWriter escritor = new FileWriter(rutaArchivo);
+		escritor = new FileWriter(rutaArchivo);
+		try (BufferedWriter out = new BufferedWriter(escritor)) {
+			out.write(salida);
+		}
+		escritor.close();
+	} catch (IOException e) {
+		System.out.println(e.getMessage());
 	}
-	escritor.close();
     }
 }

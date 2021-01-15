@@ -1,6 +1,10 @@
 package modelo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
 
 import org.junit.Test;
 
@@ -53,5 +57,14 @@ public class TestJSONtoXML {
 		System.out.println(Resultado);
 		String ResultadoEsperado="<?xml version=\"1.0\" encoding=\"UTF-8\"?><root></root>";
 		assertEquals(Resultado,ResultadoEsperado);
+	}
+	
+	@Test
+	public void CrearArchivoTestTrue() {
+		String Ruta="ArchivosTest\\TestLeer.xml";
+		File file=new File(Ruta);
+		String contenido = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root></root>";
+		json.escribirArchivo(Ruta, contenido);
+		assertTrue(file.exists());
 	}
 }
