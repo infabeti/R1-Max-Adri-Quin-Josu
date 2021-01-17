@@ -1,22 +1,37 @@
 package modelo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "municipios")
 public class Municipios implements java.io.Serializable {
-
+	
+	@Id
+	@Column(name = "nombre")
 	private String nombre;
-	private Provincias provincias;
+	
+	@Column(name = "idProvincia")
+	private int idProvincia;
 
+	//Constructor Vacio
 	public Municipios() {
 	}
-
+	
+	//Constructor Nombre
 	public Municipios(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public Municipios(String nombre, Provincias provincias) {
+	
+	//Constructor Lleno
+	public Municipios(String nombre, int idProvincia) {
 		this.nombre = nombre;
-		this.provincias = provincias;
+		this.idProvincia = idProvincia;
 	}
 
+	//Getters y Setters
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -25,12 +40,12 @@ public class Municipios implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	public Provincias getProvincias() {
-		return this.provincias;
+	public int getIdProvincias() {
+		return this.idProvincia;
 	}
 
-	public void setProvincias(Provincias provincias) {
-		this.provincias = provincias;
+	public void setIdProvincias(int idProvincia) {
+		this.idProvincia = idProvincia;
 	}
 
 }

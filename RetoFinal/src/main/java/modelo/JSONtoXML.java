@@ -73,7 +73,6 @@ public class JSONtoXML {
 	try {
 		InputStream in;
 		in = new FileInputStream(rutaArchivo);
-//		Charset encoding = Charset.defaultCharset();
 		Charset encoding = Charset.forName("UTF-8"); // Codifico el archivo con UTF-8
 
 		Reader lector = new InputStreamReader(in, encoding);

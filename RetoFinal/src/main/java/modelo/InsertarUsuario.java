@@ -3,7 +3,9 @@ package modelo;
 import org.hibernate.Session;
 
 public class InsertarUsuario {
-
+    static String[] archivos = { "estaciones", "espacios-naturales", "municipios" };
+    static String[] contenedores = { "estación", "espacio-natural", "municipio" };
+    
 	public static void main(String[] args) {
 //		HibernateUtil hibernateUtil = new HibernateUtil();
 
