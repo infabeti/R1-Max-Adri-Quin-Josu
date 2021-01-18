@@ -2,6 +2,8 @@ package modelo;
 
 import java.util.List;
 
+import javax.management.Query;
+
 import org.hibernate.Session;
 
 public class Consultas {

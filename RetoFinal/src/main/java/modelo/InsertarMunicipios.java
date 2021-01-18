@@ -18,7 +18,7 @@ import org.hibernate.Session;
  * 3) Los ingresa en la BBDD
  */
 
-public class InsertarDatos {
+public class InsertarMunicipios {
 
 //    static String[] archivos = { "estaciones", "espacios-naturales", "municipios" };
 //    static String[] contenedores = { "estación", "espacio-natural", "municipio" };
@@ -30,8 +30,8 @@ public class InsertarDatos {
 			String direccionArchivoEntrada = "./archivos//" + archivos[num] + ".xml";
 
 			String xml = leerArchivo(direccionArchivoEntrada); // Lee el archivo
-		    Municipios[] objetos = extraerDatos(xml); // Extrae los datos y crea los objetos
-		    ingresarObjetos(objetos); // Guarda los objetos en la BBDD
+			Municipios[] objetos = extraerDatos(xml); // Extrae los datos y crea los objetos
+			ingresarObjetos(objetos); // Guarda los objetos en la BBDD
 		}
 	}
 
@@ -62,7 +62,6 @@ public class InsertarDatos {
 		return acumuladoCadena.toString();
 	}
 
-
 	public static Municipios[] extraerDatos(String archivo) {
 		String[] municipios;
 		String[] lineas;
@@ -74,10 +73,7 @@ public class InsertarDatos {
 		int[] codProvincia = null;
 
 		municipios = archivo.split("</municipio>");
-		
-//---------------------------------------------------------------------------------		
-		//Renombrar nombres duplicados
-//----------------------------------------------------------------------------------		
+
 		nombrePueblo = new String[municipios.length - 1]; // declaro el tamaño
 		codProvincia = new int[municipios.length - 1]; // declaro el tamaño
 		objetos = new Municipios[municipios.length - 1]; // declaro el tamaño
@@ -96,27 +92,45 @@ public class InsertarDatos {
 					codProvincia[i] = Integer.parseInt(lineas[j].substring(23, lineas[j].length() - 1));
 				}
 			}
-
 		}
-		
-		// Crea los objetos con la información del municipio (nombre y código de provincia)
+
+		// Renombrar nombres duplicados
 		for (int i = 0; i < nombrePueblo.length; i++) {
-			objetos[i] = new Municipios(nombrePueblo[i], codProvincia[i]);
+			for (int j = i + 1; j < nombrePueblo.length; j++) {
+				if (nombrePueblo[i].contentEquals("San Sebastián")) { //Este nombre me da problemas, no lo detecta en el recorrido y además está repetido, por eso está puesta la condición independiente
+					nombrePueblo[i] = "San Sebastián-bis";
+				}
+				if (nombrePueblo[i].contentEquals(nombrePueblo[j])) {
+					nombrePueblo[j] = nombrePueblo[j] + "-bis";
+				}
+			}
 		}
 
+		// Crea los objetos con la información del municipio (nombre y código de
+		// provincia)
+		for (int k = 0; k < nombrePueblo.length; k++) {
+			objetos[k] = new Municipios(nombrePueblo[k], codProvincia[k]);
+		}
+
+		//Comprobación de nombres
+//		for (int k = 0; k < nombrePueblo.length; k++) {
+//			System.out.println(nombrePueblo[k]);
+//		}
+//		System.out.println("Nº de municipios --> " + nombrePueblo.length);
+		
 		return objetos;
 	}
 
-	
 	public static void ingresarObjetos(Municipios[] objetos) {
-		for (int i=0; i<objetos.length; i++) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-	
-		session.save(objetos[i]);
-	
-		session.getTransaction().commit();
-		session.close();
+		for (int i = 0; i < objetos.length; i++) {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+
+			session.save(objetos[i]);
+
+			session.getTransaction().commit();
+			HibernateUtil.shutdown();
+//			session.close();
 		}
 	}
 }
