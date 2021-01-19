@@ -130,7 +130,7 @@ public class InsertarMunicipios {
 
 			session.getTransaction().commit();
 			HibernateUtil.shutdown();
-//			session.close();
+			
 		}
 	}
 }

@@ -1,20 +1,40 @@
 package modelo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "estaciones_metereologicas")
 public class EstacionesMetereologicas implements java.io.Serializable {
-
+	
+	@Id
+	@Column(name = "nombre")
 	private String nombre;
+	
+	@Column(name = "nomMunicipio")
 	private Municipios municipios;
+	
+	@Column(name = "direccion")
 	private String direccion;
+	
+	@Column(name = "latitud")
 	private Double latitud;
+	
+	@Column(name = "longitud")
 	private Double longitud;
-
+	
+	//Constructor Vacio
 	public EstacionesMetereologicas() {
 	}
 
+	//Constructor nombre
 	public EstacionesMetereologicas(String nombre) {
 		this.nombre = nombre;
 	}
-
+	
+	//Constructor Lleno
 	public EstacionesMetereologicas(String nombre, Municipios municipios, String direccion, Double latitud,
 			Double longitud) {
 		this.nombre = nombre;
@@ -24,6 +44,7 @@ public class EstacionesMetereologicas implements java.io.Serializable {
 		this.longitud = longitud;
 	}
 
+	//Getters y Setters
 	public String getNombre() {
 		return this.nombre;
 	}

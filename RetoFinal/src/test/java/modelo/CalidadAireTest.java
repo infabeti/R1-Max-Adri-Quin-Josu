@@ -14,9 +14,10 @@ public class CalidadAireTest {
 	private String pm10gm3 = "12";
 	private String pm25gm3 = "5";
 	private String so2gm3 = "4";
+	private String nomEstMet = "3_DE_MARZO";
 	
 	
-	private CalidadAire calAire = new CalidadAire(fechaHora, comgm3, co8hmgm3, nogm3, no2gm3, noxgm3, pm10gm3, pm25gm3, so2gm3);
+	private CalidadAire calAire = new CalidadAire(fechaHora, comgm3, co8hmgm3, nogm3, no2gm3, noxgm3, pm10gm3, pm25gm3, so2gm3, nomEstMet);
 	private CalidadAire calAire2 = new CalidadAire(fechaHora);
 	private CalidadAire calAire3 = new CalidadAire();
 	
@@ -31,6 +32,7 @@ public class CalidadAireTest {
 		assertEquals(calAire.getPm10gm3(),"12");
 		assertEquals(calAire.getPm25gm3(),"5");
 		assertEquals(calAire.getSo2gm3(),"4");
+		assertEquals(calAire.getNomEstMet(),"3_DE_MARZO");
 	}
 	
 	@Test
@@ -49,6 +51,7 @@ public class CalidadAireTest {
 		calAire3.setPm10gm3(pm10gm3);
 		calAire3.setPm25gm3(pm25gm3);
 		calAire3.setSo2gm3(so2gm3);
+		calAire3.setNomEstMet(nomEstMet);
 		
 		assertEquals(calAire3.getFechaHora(),"31/12/2020_24:00");
 		assertEquals(calAire3.getComgm3(),"0,44");
@@ -59,6 +62,7 @@ public class CalidadAireTest {
 		assertEquals(calAire3.getPm10gm3(),"12");
 		assertEquals(calAire3.getPm25gm3(),"5");
 		assertEquals(calAire3.getSo2gm3(),"4");
+		assertEquals(calAire3.getNomEstMet(),"3_DE_MARZO");
 
 	}
 

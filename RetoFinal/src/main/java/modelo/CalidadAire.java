@@ -1,27 +1,58 @@
 package modelo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "calidad_aire")
 public class CalidadAire implements java.io.Serializable {
-
+	
+	@Id
+	@Column(name = "fecha_hora")
 	private String fechaHora;
+	
+	@Column(name = "Comgm3")
 	private String comgm3;
+	
+	@Column(name = "CO8hmgm3")
 	private String co8hmgm3;
+	
+	@Column(name = "Nogm3")
 	private String nogm3;
+	
+	@Column(name = "NO2gm3")
 	private String no2gm3;
+	
+	@Column(name = "NOXgm3")
 	private String noxgm3;
+	
+	@Column(name = "PM10gm3")
 	private String pm10gm3;
+	
+	@Column(name = "PM25gm3")
 	private String pm25gm3;
+	
+	@Column(name = "SO2gm3")
 	private String so2gm3;
-
+	
+	@Column(name = "nomEstMet")
+	private String nomEstMet;
+	
+	//Constructor Vacio
 	public CalidadAire() {
 	}
 
+	//Constructor fechaHora
 	public CalidadAire(String fechaHora) {
 		this.fechaHora = fechaHora;
 	}
 
+	//Constructor Lleno
 	public CalidadAire(String fechaHora, String comgm3,
 			String co8hmgm3, String nogm3, String no2gm3, String noxgm3, String pm10gm3, String pm25gm3,
-			String so2gm3) {
+			String so2gm3, String nomEstMet) {
 
 		this.fechaHora = fechaHora;
 		this.comgm3 = comgm3;
@@ -32,8 +63,10 @@ public class CalidadAire implements java.io.Serializable {
 		this.pm10gm3 = pm10gm3;
 		this.pm25gm3 = pm25gm3;
 		this.so2gm3 = so2gm3;
+		this.nomEstMet = nomEstMet;
 	}
 
+	//Getters y Setters
 	public String getFechaHora() {
 		return this.fechaHora;
 	}
@@ -105,5 +138,11 @@ public class CalidadAire implements java.io.Serializable {
 	public void setSo2gm3(String so2gm3) {
 		this.so2gm3 = so2gm3;
 	}
+	public String getNomEstMet() {
+		return this.nomEstMet;
+	}
 
+	public void setNomEstMet(String nomEstMet) {
+		this.nomEstMet = nomEstMet;
+	}
 }
