@@ -24,9 +24,23 @@ web varchar(200));
 create table EXISTE
 (nomMunicipio varchar(50),
 nomEspNat varchar(50),
-constraint fk_nomMunicipio2 foreign key(nomMunicipio) references MUNICIPIOS(nombre) on delete cascade on update cascade,
+constraint fk_nomMunicipio foreign key(nomMunicipio) references MUNICIPIOS(nombre) on delete cascade on update cascade,
 constraint fk_nomEspNat foreign key(nomEspNat) references ESPACIOS_NATURALES(nombre) on delete cascade on update cascade,
 constraint pk_existe primary key (nomMunicipio,nomEspNat));
+
+create table ES_FAVORITO_MUN
+(idUser varchar(20),
+nomMunicipio varchar(50),
+constraint fk_idUser2 foreign key(idUser) references USUARIOS(idUser) on delete cascade on update cascade,
+constraint fk_nomMunicipio4 foreign key(nomMunicipio) references MUNICIPIOS(nombre) on delete cascade on update cascade,
+constraint pk_es_favorito_mun primary key(idUser,nomMunicipio));
+
+create table ES_FAVORITO_ESP
+(idUser varchar(20),
+nomEspNat varchar(50),
+constraint fk_idUser3 foreign key(idUser) references USUARIOS(idUser) on delete cascade on update cascade,
+constraint fk_nomEspNat2 foreign key(nomEspNat) references ESPACIOS_NATURALES(nombre) on delete cascade on update cascade,
+constraint pk_es_favorito_esp primary key(idUser,nomEspNat));
 
 create table ESTACIONES_METEREOLOGICAS
 (nombre varchar(50) primary key,
@@ -34,7 +48,7 @@ direccion varchar(200),
 latitud double,
 longitud double,
 nomMunicipio varchar(50),
-constraint fk_nomMunicipio3 foreign key(nomMunicipio) references MUNICIPIOS(nombre) on delete cascade on update cascade);
+constraint fk_nomMunicipio2 foreign key(nomMunicipio) references MUNICIPIOS(nombre) on delete cascade on update cascade);
 
 create table CALIDAD_AIRE
 (fecha_hora varchar(20) primary key,
@@ -52,7 +66,7 @@ constraint fk_nomEstMet foreign key(nomEstMet) references ESTACIONES_METEREOLOGI
 create table FOTOS
 (id int AUTO_INCREMENT primary key,
 nomMunicipio varchar(50),
-constraint fk_nomMunicipio4 foreign key(nomMunicipio) references MUNICIPIOS(nombre) on delete cascade on update cascade);
+constraint fk_nomMunicipio3 foreign key(nomMunicipio) references MUNICIPIOS(nombre) on delete cascade on update cascade);
 
 create table FOTOS_OPENDATA
 (id int AUTO_INCREMENT primary key,
