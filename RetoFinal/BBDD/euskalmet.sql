@@ -63,3 +63,7 @@ create table FOTOS_USUARIOS
 idUser varchar(20),
 constraint fk_FotosUsuarios foreign key(id) references FOTOS(id) on delete cascade on update cascade,
 constraint fk_idUser foreign key(idUser) references USUARIOS(idUser) on update cascade);
+
+insert into provincias values (1,'Álava');
+insert into provincias values (20,'Gipuzkoa');
+insert into provincias values (48,'Bizkaia');
