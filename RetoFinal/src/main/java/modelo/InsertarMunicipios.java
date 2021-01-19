@@ -71,12 +71,13 @@ public class InsertarMunicipios {
 		String municipio = "";
 		String[] nombrePuebloXML = null;
 		String[] nombrePuebloLIMPIO = null;
-		int[] codProvincia = null;
+		int[] codProvinciaXML = null;
+		int[] codProvinciaLIMPIO = null;
 
 		municipios = archivo.split("</municipio>");
 
 		nombrePuebloXML = new String[municipios.length - 1]; // declaro el tamaño
-		codProvincia = new int[municipios.length - 1]; // declaro el tamaño
+		codProvinciaXML = new int[municipios.length - 1]; // declaro el tamaño
 		objetos = new Municipios[municipios.length - 1]; // declaro el tamaño
 		for (int i = 0; i < municipios.length; i++) {
 			lineas = municipios[i].split("/");
@@ -90,7 +91,7 @@ public class InsertarMunicipios {
 						}
 					}
 				} else if (lineas[j].contains("<territorycode>")) { // Guarda el código de la provincia correspondiente
-					codProvincia[i] = Integer.parseInt(lineas[j].substring(23, lineas[j].length() - 1));
+					codProvinciaXML[i] = Integer.parseInt(lineas[j].substring(23, lineas[j].length() - 1));
 				}
 			}
 		}
@@ -99,7 +100,8 @@ public class InsertarMunicipios {
 		int contador = 0;
 		for (int i = 0; i < nombrePuebloXML.length; i++) {			
 			for (int j = i + 1; j < nombrePuebloXML.length; j++) {
-				if (nombrePuebloXML[i].contentEquals("San Sebastián")) { //Este nombre me da problemas, no lo detecta en el recorrido y además está repetido, por eso está puesta la condición independiente
+				if (nombrePuebloXML[i].contentEquals("San Sebastián")) { //Este nombre me da problemas, no lo detecta en el recorrido y además está repetido de cara a hibernate 
+																		//(es por que hay dos entradas, una con acento y otra sin acento), por eso está puesta la condición independiente
 					nombrePuebloXML[i] = "San Sebastián2";
 
 				}
@@ -111,17 +113,19 @@ public class InsertarMunicipios {
 		}
 		
 		nombrePuebloLIMPIO = new String[nombrePuebloXML.length - contador]; // declaro el tamaño
+		codProvinciaLIMPIO = new int[codProvinciaXML.length - contador]; // declaro el tamaño
 		int cuentaPueblos = 0;
 		for (int i = 0; i < nombrePuebloXML.length; i++) {	
 			if (!nombrePuebloXML[i].contains("Entrada duplicada ")) {
 				nombrePuebloLIMPIO[cuentaPueblos] = nombrePuebloXML[i];
+				codProvinciaLIMPIO[cuentaPueblos] = codProvinciaXML[i];
 				cuentaPueblos ++;
 			}
 		}		
 		// Crea los objetos con la información del municipio (nombre y código de
 		// provincia)
 		for (int k = 0; k < nombrePuebloLIMPIO.length; k++) {
-			objetos[k] = new Municipios(nombrePuebloLIMPIO[k], codProvincia[k]);
+			objetos[k] = new Municipios(nombrePuebloLIMPIO[k], codProvinciaLIMPIO[k]);
 		}
 
 		//Comprobación de nombres
