@@ -69,12 +69,13 @@ public class InsertarMunicipios {
 		String nombre;
 		int idProvincia;
 		String municipio = "";
-		String[] nombrePueblo = null;
+		String[] nombrePuebloXML = null;
+		String[] nombrePuebloLIMPIO = null;
 		int[] codProvincia = null;
 
 		municipios = archivo.split("</municipio>");
 
-		nombrePueblo = new String[municipios.length - 1]; // declaro el tamaño
+		nombrePuebloXML = new String[municipios.length - 1]; // declaro el tamaño
 		codProvincia = new int[municipios.length - 1]; // declaro el tamaño
 		objetos = new Municipios[municipios.length - 1]; // declaro el tamaño
 		for (int i = 0; i < municipios.length; i++) {
@@ -85,7 +86,7 @@ public class InsertarMunicipios {
 						if (lineas[j].charAt(k) == 'y') { // Recorta la linea desde el carácter 'y' hasta el final
 							municipio = lineas[j].substring(k, lineas[j].length() - 1);
 							if (municipio.contains(">"))
-								nombrePueblo[i] = municipio.substring(2); // Guarda el nombre en el array
+								nombrePuebloXML[i] = municipio.substring(2); // Guarda el nombre en el array
 						}
 					}
 				} else if (lineas[j].contains("<territorycode>")) { // Guarda el código de la provincia correspondiente
@@ -94,29 +95,41 @@ public class InsertarMunicipios {
 			}
 		}
 
-		// Renombrar nombres duplicados
-		for (int i = 0; i < nombrePueblo.length; i++) {
-			for (int j = i + 1; j < nombrePueblo.length; j++) {
-				if (nombrePueblo[i].contentEquals("San Sebastián")) { //Este nombre me da problemas, no lo detecta en el recorrido y además está repetido, por eso está puesta la condición independiente
-					nombrePueblo[i] = "San Sebastián-bis";
+		// Borrar entradas duplicadas
+		int contador = 0;
+		for (int i = 0; i < nombrePuebloXML.length; i++) {			
+			for (int j = i + 1; j < nombrePuebloXML.length; j++) {
+				if (nombrePuebloXML[i].contentEquals("San Sebastián")) { //Este nombre me da problemas, no lo detecta en el recorrido y además está repetido, por eso está puesta la condición independiente
+					nombrePuebloXML[i] = "San Sebastián2";
+
 				}
-				if (nombrePueblo[i].contentEquals(nombrePueblo[j])) {
-					nombrePueblo[j] = nombrePueblo[j] + "-bis";
+				if (nombrePuebloXML[i].contentEquals(nombrePuebloXML[j])) {
+					nombrePuebloXML[j] = "Entrada duplicada " + contador;
+					contador ++;
 				}
 			}
 		}
-
+		
+		nombrePuebloLIMPIO = new String[nombrePuebloXML.length - contador]; // declaro el tamaño
+		int cuentaPueblos = 0;
+		for (int i = 0; i < nombrePuebloXML.length; i++) {	
+			if (!nombrePuebloXML[i].contains("Entrada duplicada ")) {
+				nombrePuebloLIMPIO[cuentaPueblos] = nombrePuebloXML[i];
+				cuentaPueblos ++;
+			}
+		}		
 		// Crea los objetos con la información del municipio (nombre y código de
 		// provincia)
-		for (int k = 0; k < nombrePueblo.length; k++) {
-			objetos[k] = new Municipios(nombrePueblo[k], codProvincia[k]);
+		for (int k = 0; k < nombrePuebloLIMPIO.length; k++) {
+			objetos[k] = new Municipios(nombrePuebloLIMPIO[k], codProvincia[k]);
 		}
 
 		//Comprobación de nombres
-//		for (int k = 0; k < nombrePueblo.length; k++) {
-//			System.out.println(nombrePueblo[k]);
-//		}
-//		System.out.println("Nº de municipios --> " + nombrePueblo.length);
+		for (int k = 0; k < nombrePuebloLIMPIO.length; k++) {
+			System.out.println(nombrePuebloLIMPIO[k]);
+		}
+		System.out.println("Nº de municipios CON REPETIDOS--> " + nombrePuebloXML.length);
+		System.out.println("Nº de municipios CON NOMBRE ÚNICO--> " + nombrePuebloLIMPIO.length);
 		
 		return objetos;
 	}

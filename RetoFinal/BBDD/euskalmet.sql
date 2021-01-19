@@ -50,16 +50,16 @@ nomEstMet varchar(50),
 constraint fk_nomEstMet foreign key(nomEstMet) references ESTACIONES_METEREOLOGICAS(nombre) on delete cascade on update cascade);
 
 create table FOTOS
-(id varchar(200) primary key,
+(id int AUTO_INCREMENT primary key,
 nomMunicipio varchar(50),
 constraint fk_nomMunicipio4 foreign key(nomMunicipio) references MUNICIPIOS(nombre) on delete cascade on update cascade);
 
-create table FOTOS_EUSKALMET
-(id varchar(200) primary key,
-constraint fk_FotosEuskalmet foreign key(id) references FOTOS(id) on delete cascade on update cascade);
+create table FOTOS_OPENDATA
+(id int AUTO_INCREMENT primary key,
+constraint fk_FotosOPENDATA foreign key(id) references FOTOS(id) on delete cascade on update cascade);
 
 create table FOTOS_USUARIOS
-(id varchar(200) primary key,
+(id int AUTO_INCREMENT primary key,
 idUser varchar(20),
 constraint fk_FotosUsuarios foreign key(id) references FOTOS(id) on delete cascade on update cascade,
 constraint fk_idUser foreign key(idUser) references USUARIOS(idUser) on update cascade);
