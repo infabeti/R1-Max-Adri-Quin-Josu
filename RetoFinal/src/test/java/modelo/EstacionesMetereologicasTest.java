@@ -6,8 +6,8 @@ import org.junit.Test;
 
 public class EstacionesMetereologicasTest {
     private String nombre = "ABANTO";
-    private Municipios municipio = new Municipios("Abanto y Ciérvana-Abanto Zierbena");
-    private Municipios municipio2 = new Municipios("Getxo");
+    private String municipio = "Abanto y Ciérvana-Abanto Zierbena";
+    private String municipio2 = "Getxo";
     private String direccion = "Avda. del Minero, 2. Ayuntamiento";
     private Double latitud = 43.32047399433485;
     private Double longitud = -3.0741559961978044;
@@ -39,7 +39,7 @@ public class EstacionesMetereologicasTest {
 	estacionesMetereologicas3.setLongitud(-3.0227822073211765);
 	
 	assertEquals(estacionesMetereologicas3.getNombre(), "ALGORTA (BBIZI2)");
-	assertEquals(estacionesMetereologicas3.getMunicipios().getNombre(), "Getxo");
+	assertEquals(estacionesMetereologicas3.getMunicipios(), "Getxo");
 	assertEquals(estacionesMetereologicas3.getDireccion(), "Carretera de Galea, s/n");
 	assertEquals(estacionesMetereologicas3.getLatitud(), 43.362055748944286, 0.0);
 	assertEquals(estacionesMetereologicas3.getLongitud(), -3.0227822073211765, 0.0);

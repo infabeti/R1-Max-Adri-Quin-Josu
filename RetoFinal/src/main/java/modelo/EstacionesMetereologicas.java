@@ -14,7 +14,7 @@ public class EstacionesMetereologicas implements java.io.Serializable {
 	private String nombre;
 	
 	@Column(name = "nomMunicipio")
-	private Municipios municipios;
+	private String municipios;
 	
 	@Column(name = "direccion")
 	private String direccion;
@@ -35,7 +35,7 @@ public class EstacionesMetereologicas implements java.io.Serializable {
 	}
 	
 	//Constructor Lleno
-	public EstacionesMetereologicas(String nombre, Municipios municipios, String direccion, Double latitud,
+	public EstacionesMetereologicas(String nombre, String municipios, String direccion, Double latitud,
 			Double longitud) {
 		this.nombre = nombre;
 		this.municipios = municipios;
@@ -53,11 +53,11 @@ public class EstacionesMetereologicas implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	public Municipios getMunicipios() {
+	public String getMunicipios() {
 		return this.municipios;
 	}
 
-	public void setMunicipios(Municipios municipios) {
+	public void setMunicipios(String municipios) {
 		this.municipios = municipios;
 	}
 
