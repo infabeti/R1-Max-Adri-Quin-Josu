@@ -20,10 +20,12 @@ import org.hibernate.Session;
  * 3) Los ingresa en la BBDD
  */
 
-public class InsertarDatos {
-
-//    static String[] archivos = { "estaciones", "espacios-naturales", "municipios" };
-//    static String[] contenedores = { "estación", "espacio-natural", "municipio" };
+public class InsertarDatosGeograficos {
+	
+//PTE: AÑADIR ESPACIOS-NATURALES A LA CLASE
+	
+//    static String[] archivos = { "municipios", "estaciones", "espacios-naturales" };
+//    static String[] contenedores = { "municipio", "estación", "espacio-natural" };
 
 	static String[] archivos = { "municipios", "estaciones" };
 	static String[] contenedores = { "municipio", "estación" };
@@ -173,16 +175,45 @@ public class InsertarDatos {
 		String latitud = "";
 		String longitud = "";
 		String longitudString = "";
-
+		String nombreConEspacios = "";
+		
 		for (int i = 0; i < estaciones.length - 1; i++) { // Recorre cada estación
 			nombreAux = estaciones[i].split("<Name>");
 
 			// Nombre
 			for (int j = 0; j < nombreAux.length; j++) {
 				if (nombreAux[j].contains("</Name>")) {
-					nombre = nombreAux[j].substring(0, nombreAux[j].length() - 7);
+					nombreConEspacios = nombreAux[j].substring(0, nombreAux[j].length() - 7);
 				}
 			}
+			
+			nombre = "";
+			for (int k = 0; k < nombreConEspacios.length(); k++) { //Sustituyo los espacios por guiones bajos
+
+				if(nombreConEspacios.charAt(k) == ' ')	{
+					nombre += "_";
+				}else {
+					nombre += Character.toString(nombreConEspacios.charAt(k));
+				}
+				if(nombreConEspacios.charAt(k) == 'Ñ')	{
+					nombre = nombre.substring(0,nombre.length()-1);
+					nombre += "N";
+				}
+				if(nombreConEspacios.charAt(k) == '(')	{
+					nombre = nombre.substring(0,nombre.length()-1);
+					
+				}
+				if(nombreConEspacios.charAt(k) == ')')	{
+					nombre = nombre.substring(0,nombre.length()-1);
+				}
+				if(nombreConEspacios.charAt(k) == 'ª')	{
+					nombre = nombre.substring(0,nombre.length()-1);
+				}
+				if(nombreConEspacios.charAt(k) == '.')	{
+					nombre = nombre.substring(0,nombre.length()-1);
+				}
+			}
+			
 			nombres[i] = nombre;
 
 			// Municipio
@@ -252,7 +283,7 @@ public class InsertarDatos {
 				}
 			}
 			longitudes[i] = longitud;
-		} // Fin bucle estaciones
+		} // Fin bucle estaciones		
 
 		// Crea los objetos con la información de las estaciones (nombre, municipio,
 		// direccion, latitud y longitud)
@@ -282,4 +313,5 @@ public class InsertarDatos {
 
 		}
 	}
+	
 }

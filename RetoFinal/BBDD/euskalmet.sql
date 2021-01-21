@@ -51,7 +51,7 @@ nomMunicipio varchar(50),
 constraint fk_nomMunicipio2 foreign key(nomMunicipio) references MUNICIPIOS(nombre) on delete cascade on update cascade);
 
 create table CALIDAD_AIRE
-(fecha_hora varchar(20) primary key,
+(nomEstMet varchar(50) primary key,
 Comgm3 varchar(20), 
 CO8hmgm3 varchar(20), 
 Nogm3 varchar(20), 
@@ -60,7 +60,7 @@ NOXgm3 varchar(20),
 PM10gm3 varchar(20), 
 PM25gm3 varchar(20), 
 SO2gm3 varchar(20),
-nomEstMet varchar(50),
+fecha_hora varchar(20),
 constraint fk_nomEstMet foreign key(nomEstMet) references ESTACIONES_METEREOLOGICAS(nombre) on delete cascade on update cascade);
 
 create table FOTOS

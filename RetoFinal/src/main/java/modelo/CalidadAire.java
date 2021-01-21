@@ -10,8 +10,8 @@ import javax.persistence.Table;
 public class CalidadAire implements java.io.Serializable {
 	
 	@Id
-	@Column(name = "fecha_hora")
-	private String fechaHora;
+	@Column(name = "nomEstMet")
+	private String nomEstMet;
 	
 	@Column(name = "Comgm3")
 	private String comgm3;
@@ -37,8 +37,8 @@ public class CalidadAire implements java.io.Serializable {
 	@Column(name = "SO2gm3")
 	private String so2gm3;
 	
-	@Column(name = "nomEstMet")
-	private String nomEstMet;
+	@Column(name = "fecha_hora")
+	private String fechaHora;
 	
 	//Constructor Vacio
 	public CalidadAire() {

@@ -5,7 +5,6 @@ import org.hibernate.Session;
 public class InsertarUsuario {
     
 	public static void main(String[] args) {
-//		HibernateUtil hibernateUtil = new HibernateUtil();
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
