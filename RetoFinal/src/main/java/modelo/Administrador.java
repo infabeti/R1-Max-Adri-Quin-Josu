@@ -14,7 +14,7 @@ public class Administrador {
 	private String host = "localhost";
 	Socket socket = null;
 	JTextArea textArea = null;
-	JTextField texto = null;
+	String texto = null;
 	ObjectOutputStream fsalida = null;
 	JButton botonEnviar = null;
 
@@ -22,10 +22,9 @@ public class Administrador {
 
 	}
 
-	public Administrador(Socket socket, JTextArea textArea, JTextField texto, JButton botonEnviar) throws IOException {
+	public Administrador(Socket socket, JTextArea textArea, JButton botonEnviar) throws IOException {
 		this.socket = socket;
 		this.textArea = textArea;
-		this.texto = texto;
 		this.botonEnviar = botonEnviar;
 		ObjectInputStream fentrada = null;
 
@@ -41,7 +40,6 @@ public class Administrador {
 			if (botonEnviar.isEnabled())
 				fsalida.writeObject(mensaje);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

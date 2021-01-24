@@ -9,11 +9,11 @@ import javax.swing.JTextField;
 
 public class HiloRecibirAdmin extends Thread {
 	JTextArea textArea = null;
-	JTextField texto = null;
+	String texto = null;
 	ObjectInputStream oentrada = null;
 	JButton botonEnviar = null;
 
-	public HiloRecibirAdmin(JTextArea textArea, JTextField texto, ObjectInputStream oentrada, JButton botonEnviar) {
+	public HiloRecibirAdmin(JTextArea textArea, String texto, ObjectInputStream oentrada, JButton botonEnviar) {
 		this.textArea = textArea;
 		this.texto = texto;
 		this.oentrada = oentrada;
@@ -27,11 +27,12 @@ public class HiloRecibirAdmin extends Thread {
 		while (!texto.equals("ADIOS")) {
 			try {
 				texto = (String) oentrada.readObject();
-				if(!texto.equals("ADIOS"))
+				if(!texto.equals("ADIOS")) {
+					texto = texto.replace(",", "").replace("[", "").replace("]", "");
 					textArea.append(texto);
-				else
+				}else {
 					textArea.append("Servidor desconectado");
-
+				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

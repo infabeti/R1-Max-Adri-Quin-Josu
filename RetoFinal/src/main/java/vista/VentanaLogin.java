@@ -14,13 +14,15 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class VentanaLogin extends JFrame{
 	private JPanel contentPane;
 	private JTextField textField;
 	
-	//Lanza la conexi�n de un administrador
+	//Lanza la conexiï¿½n de un administrador
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -60,9 +62,40 @@ public class VentanaLogin extends JFrame{
 		lblNewLabel_1.setVisible(false);
 		
 		JButton btnNewButton = new JButton("Aceptar");
+		contentPane.setFocusable(true);
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER){
+					lblNewLabel_1.setVisible(false);
+					if(!textField.getText().equals("") && ( 
+						textField.getText().equals("AdrianQ") || 
+						textField.getText().equals("AdrianM") || 
+						textField.getText().equals("Josu") || 
+						textField.getText().equals("Maxi"))) {
+						
+						Socket s = null;
+						VentanaAdministrador ventAdmin;
+						try {
+							ventAdmin = new VentanaAdministrador(s,textField.getText());
+							ventAdmin.setBounds(0, 0, 650, 400);
+							ventAdmin.setVisible(true);
+							setVisible(false);
+						} catch (IOException e1) {
+							lblNewLabel_1.setVisible(true);
+							lblNewLabel_1.setText("Error al conectarse");
+						}				
+					}
+					else {
+						lblNewLabel_1.setVisible(true);
+						lblNewLabel_1.setText("Debe introducir el nick de un Administrador");
+					}
+				}
+			}
+		});
 		btnNewButton.addActionListener(new ActionListener() {
 			
-			public void actionPerformed(ActionEvent e) { //Acci�n del bot�n Aceptar
+			public void actionPerformed(ActionEvent e) { //Acciï¿½n del botï¿½n Aceptar
 				lblNewLabel_1.setVisible(false);
 				if(!textField.getText().equals("") && ( 
 					textField.getText().equals("AdrianQ") || 
