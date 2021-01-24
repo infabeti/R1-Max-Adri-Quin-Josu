@@ -24,8 +24,8 @@ import org.json.JSONObject;
  */
 
 public class JSONtoXML {
-    static String[] archivos = { "index", "estaciones", "espacios-naturales", "municipios" };
-    static String[] contenedores = { "index", "estación", "espacio-natural", "municipio" };
+    static String[] archivos = { "index", "estaciones", "espacios-naturales", "municipios", "descripcionMunicipios" };
+    static String[] contenedores = { "index", "estación", "espacio-natural", "municipio", "descripcionMunicipios" };
 
     public static void main(String[] args) throws FileNotFoundException, IOException, JSONException {
 	for (int num = 0; num < archivos.length; num++) {
