@@ -47,5 +47,19 @@ public class Municipios implements java.io.Serializable {
 	public void setIdProvincias(int idProvincia) {
 		this.idProvincia = idProvincia;
 	}
+	@Override
+	public String toString() {
+		String mandar = "";
+		if (idProvincia == 1){
+			mandar = "Alava \t" + idProvincia + "\t " + nombre + "\n";
+		}else if(idProvincia == 20) {
+			mandar = "Guipuzkoa \t" + idProvincia + "\t " + nombre + "\n";
+		}else {
+			mandar = "Bizkaia \t" + idProvincia + "\t " + nombre + "\n";
+		}
+		return mandar;
+	}
+
+
 
 }

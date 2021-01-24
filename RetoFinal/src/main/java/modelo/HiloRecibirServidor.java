@@ -26,7 +26,7 @@ public class HiloRecibirServidor extends Thread {
 				consulta = (String) objetoEntrada.readObject();
 				if (consulta.contains("CONSULTA--> ")) {
 					consulta = consulta.substring(12);
-					respuesta = consulta + "\n" + modelo.Consultas.Consultas(consulta);
+					respuesta = modelo.Consultas.Consultas(consulta);
 					objetoSalida.writeObject(respuesta);
 				} else {
 					System.out.println(consulta);

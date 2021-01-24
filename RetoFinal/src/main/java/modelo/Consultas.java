@@ -1,49 +1,34 @@
 package modelo;
 
-import java.util.List;
-
-import javax.management.Query;
-
+import java.util.ArrayList;
+import java.util.Iterator;
 import org.hibernate.Session;
 
 public class Consultas {
 
 	public static String Consultas(String consulta) {
-		List<Object[]> result = null;
 		String resultado = "";
 
+		ArrayList<Municipios> municipio= new ArrayList<Municipios>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
 		
 		//CONSULTA
-		result = session.createSQLQuery(consulta).list();
 		
-		try {
-		for (Object[] row : result) {
-			resultado +=  "\n";
-			for (Object col : row) {
-				resultado += col + " ";
-			}
+		Iterator hql = session.createQuery(consulta).iterate();
+        while (hql.hasNext()) {
+        	Municipios muni = (Municipios) hql.next();
+        	municipio.add(muni);
+        }  
+		for ( int x=0; x<municipio.size(); x++) {
+			resultado = municipio.toString();
 		}
-		resultado +=  "\n";
-		} catch (ClassCastException e) {
-			e.printStackTrace();
-		}
+
 		session.getTransaction().commit();
 		session.close();
 		
 		return resultado;
-
 	}
 
 }
-
-
-//-->CONSULTA TIPO
-//List<Object[]> result = session.createNativeQuery("SELECT * FROM some_table").list();
-//for (Object[] row : result) {
-//    for (Object col : row) {
-//        System.out.print(col);
-//    }
-//}
