@@ -18,6 +18,9 @@ public class Servidor extends Thread {
 
 	public void run() {
 
+		Server();
+	}
+	public boolean Server() {
 		try {
 			servidor = new ServerSocket(PUERTO);
 
@@ -38,14 +41,10 @@ public class Servidor extends Thread {
 
 		} catch (IOException e) {
 			System.out.println("Servidor cerrado");
+			
 			System.exit(0);
 		}
-	}
-
-	public static void main(String[] args) {
-		// Arranca el servidor
-		Servidor servidor = new Servidor();
-		servidor.start();
+		return true;
 	}
 
 }

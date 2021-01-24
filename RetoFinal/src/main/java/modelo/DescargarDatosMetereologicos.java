@@ -6,6 +6,10 @@ import java.io.IOException;
 public class DescargarDatosMetereologicos {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
+		
+		descargar();
+	}
+	public static void descargar() {
 		JSONtoXML conversor = new JSONtoXML();
 		DescargarJSON descarga = new DescargarJSON();
 		String[] lineas;
@@ -54,15 +58,18 @@ public class DescargarDatosMetereologicos {
 			jsonOrigen = conversor.leerArchivo(direccionArchivoEntrada2); // Lee el archivo
 			System.out.println("LEER ARCHIVO" + nombreArchivo[num] + ".json");
 
-			String jsonPreparado = conversor.prepararArchivo(jsonOrigen, nombreArchivo[num]); // Prepara el archivo: quita cabecera
-			System.out.println("PREPARAR ARCHIVO" + nombreArchivo[num] + ".json");
+			if (jsonOrigen.length()>0) {
+				String jsonPreparado = conversor.prepararArchivo(jsonOrigen, nombreArchivo[num]); // Prepara el archivo: quita cabecera
+				System.out.println("PREPARAR ARCHIVO" + nombreArchivo[num] + ".json");
 
-			String xml = conversor.convertir(jsonPreparado, nombreArchivo[num]); // Establezco el nombre del tag raiz																		// del XML
-			System.out.println("CONVERTIR ARCHIVO" + nombreArchivo[num] + ".json --> " + nombreArchivo[num] + ".xml");
+				String xml = conversor.convertir(jsonPreparado, nombreArchivo[num]); // Establezco el nombre del tag raiz																		// del XML
+				System.out.println("CONVERTIR ARCHIVO" + nombreArchivo[num] + ".json --> " + nombreArchivo[num] + ".xml");
 
-			conversor.escribirArchivo(direccionArchivoSalida, xml); // Escribe el archivo XML
-			System.out.println("ESCRIBIR ARCHIVO" + nombreArchivo[num] + ".xml");
+				conversor.escribirArchivo(direccionArchivoSalida, xml); // Escribe el archivo XML
+				System.out.println("ESCRIBIR ARCHIVO" + nombreArchivo[num] + ".xml");
+			}
+			
+			
 		}
-
 	}
 }

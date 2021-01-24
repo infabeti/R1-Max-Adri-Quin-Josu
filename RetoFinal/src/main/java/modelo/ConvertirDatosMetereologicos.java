@@ -6,6 +6,10 @@ import java.io.IOException;
 public class ConvertirDatosMetereologicos {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
+		comvertir();
+	
+	}
+	public static void comvertir() {
 		JSONtoXML conversor = new JSONtoXML();
 		DescargarJSON descarga = new DescargarJSON();
 		String[] lineas;
@@ -50,14 +54,17 @@ public class ConvertirDatosMetereologicos {
 			String direccionArchivoSalida = ruta + nombreArchivo[num] + ".xml";
 
 			jsonOrigen = conversor.leerArchivo(direccionArchivoEntrada2); // Lee el archivo
-
+			
+			if (jsonOrigen.length()>0) {
+				
+			
 			String jsonPreparado = conversor.prepararArchivo(jsonOrigen, nombreArchivo[num]); // Prepara el archivo: quita cabecera
 
 			String xml = conversor.convertir(jsonPreparado, nombreArchivo[num]); // Establezco el nombre del tag raiz del XML
 
 			conversor.escribirArchivo(direccionArchivoSalida, xml); // Escribe el archivo XML
-
+			}
 		}
-
 	}
+	
 }
