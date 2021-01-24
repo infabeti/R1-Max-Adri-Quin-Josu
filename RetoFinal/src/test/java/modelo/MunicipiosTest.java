@@ -32,4 +32,20 @@ public class MunicipiosTest {
 	assertEquals(municipio3.getNombre(), "Bilbao");
 	assertEquals(municipio3.getIdProvincias(), 48);
     }
+    
+    @Test
+    public void StringTest1() {
+    municipio.setIdProvincias(1);
+	municipio.toString();
+    }
+    @Test
+    public void StringTest20() {
+    municipio.setIdProvincias(20);
+	municipio.toString();
+    }
+    @Test
+    public void StringTest48() {
+    municipio.setIdProvincias(48);
+	municipio.toString();
+    }
 }
