@@ -4,7 +4,7 @@ use euskalmet;
 
 create table USUARIOS
 (idUser varchar(20) primary key,
-password varchar(10) not null
+password varchar(10) not null,
 recuperacion varchar(60));
 
 create table PROVINCIAS
@@ -14,6 +14,9 @@ nombre varchar(10) not null);
 create table MUNICIPIOS
 (nombre varchar(50) primary key,
 idProvincia int(2) not null,
+descripcion mediumtext,
+latitud double,
+longitud double,
 constraint fk_idProvincia foreign key(idProvincia) references PROVINCIAS(id) on delete cascade on update cascade);
 
 create table ESPACIOS_NATURALES
