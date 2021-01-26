@@ -21,7 +21,9 @@ constraint fk_idProvincia foreign key(idProvincia) references PROVINCIAS(id) on 
 
 create table ESPACIOS_NATURALES
 (nombre varchar(50) primary key,
-descripcion varchar(2000),
+descripcion mediumtext,
+latitud double,
+longitud double,
 tipo varchar(50),
 web varchar(200));
 
@@ -70,17 +72,11 @@ constraint fk_nomEstMet foreign key(nomEstMet) references ESTACIONES_METEREOLOGI
 create table FOTOS
 (id int AUTO_INCREMENT primary key,
 nomMunicipio varchar(50),
+idUser varchar(20),
+foto mediumtext,
+constraint fk_idUser foreign key(idUser) references USUARIOS(idUser) on update cascade,
 constraint fk_nomMunicipio3 foreign key(nomMunicipio) references MUNICIPIOS(nombre) on delete cascade on update cascade);
 
-create table FOTOS_OPENDATA
-(id int AUTO_INCREMENT primary key,
-constraint fk_FotosOPENDATA foreign key(id) references FOTOS(id) on delete cascade on update cascade);
-
-create table FOTOS_USUARIOS
-(id int AUTO_INCREMENT primary key,
-idUser varchar(20),
-constraint fk_FotosUsuarios foreign key(id) references FOTOS(id) on delete cascade on update cascade,
-constraint fk_idUser foreign key(idUser) references USUARIOS(idUser) on update cascade);
 
 insert into provincias values (1,'Álava');
 insert into provincias values (20,'Gipuzkoa');
