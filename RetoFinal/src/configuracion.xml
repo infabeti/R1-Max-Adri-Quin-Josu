@@ -15,5 +15,6 @@
         <mapping class="modelo.EstacionesMetereologicas"></mapping>
         <mapping class="modelo.EspaciosNaturales"></mapping>
         <mapping class="modelo.CalidadAire"></mapping>
+        <mapping class="modelo.RelacionExiste"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -31,6 +31,11 @@ public class EspaciosNaturales implements java.io.Serializable {
 	//Constructor Vacio
 	public EspaciosNaturales() {
 	}
+	
+	//Constructor Nomvre
+	public EspaciosNaturales(String nombre) {
+		this.nombre = nombre;
+	}
 
 	//Constructor lleno
 	public EspaciosNaturales(String nombre, String descripcion, double latitud, double longitud, String tipo,
