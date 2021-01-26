@@ -11,8 +11,6 @@
         <mapping class="modelo.Usuarios"></mapping>
         <mapping class="modelo.Provincias"></mapping>
         <mapping class="modelo.Municipios"></mapping>
-        <mapping class="modelo.FotosUsuarios"></mapping>
-        <mapping class="modelo.FotosEuskalmet"></mapping>
         <mapping class="modelo.Fotos"></mapping>
         <mapping class="modelo.EstacionesMetereologicas"></mapping>
         <mapping class="modelo.EspaciosNaturales"></mapping>

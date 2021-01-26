@@ -16,6 +16,12 @@ public class EspaciosNaturales implements java.io.Serializable {
 	@Column(name = "descripcion")
 	private String descripcion;
 	
+	@Column(name="latitud")
+	private double latitud;
+	
+	@Column(name="longitud")
+	private double longitud;
+	
 	@Column(name="tipo")
 	private String tipo;
 	
@@ -25,23 +31,21 @@ public class EspaciosNaturales implements java.io.Serializable {
 	//Constructor Vacio
 	public EspaciosNaturales() {
 	}
-	
-	//Constructor nombre
-	public EspaciosNaturales(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	//Constructor Lleno
-	public EspaciosNaturales(String nombre, String descripcion, String tipo, String web) {
+
+	//Constructor lleno
+	public EspaciosNaturales(String nombre, String descripcion, double latitud, double longitud, String tipo,
+			String web) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.latitud = latitud;
+		this.longitud = longitud;
 		this.tipo = tipo;
 		this.web = web;
 	}
 
-	//Getters y Setters
+	// Getters y Setters
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -49,15 +53,31 @@ public class EspaciosNaturales implements java.io.Serializable {
 	}
 
 	public String getDescripcion() {
-		return this.descripcion;
+		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
+	public double getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(double latitud) {
+		this.latitud = latitud;
+	}
+
+	public double getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(double longitud) {
+		this.longitud = longitud;
+	}
+
 	public String getTipo() {
-		return this.tipo;
+		return tipo;
 	}
 
 	public void setTipo(String tipo) {
@@ -65,11 +85,11 @@ public class EspaciosNaturales implements java.io.Serializable {
 	}
 
 	public String getWeb() {
-		return this.web;
+		return web;
 	}
 
 	public void setWeb(String web) {
 		this.web = web;
 	}
-
+	
 }

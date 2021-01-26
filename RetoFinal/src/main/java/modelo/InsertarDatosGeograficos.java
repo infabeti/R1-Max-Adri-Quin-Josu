@@ -9,8 +9,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
-import javax.persistence.Column;
-
 import org.hibernate.Session;
 
 /*
@@ -21,8 +19,6 @@ import org.hibernate.Session;
  */
 
 public class InsertarDatosGeograficos {
-	
-//PTE: AÑADIR ESPACIOS-NATURALES A LA CLASE
 	
     static String[] archivos = { "municipios", "estaciones", "espacios-naturales" };
     static String[] contenedores = { "municipio", "estación", "espacio-natural" };
@@ -49,7 +45,7 @@ public class InsertarDatosGeograficos {
 				System.out.println("no coincide");
 			}
 
-//			ingresarObjetos(objetos); // Guarda los objetos en la BBDD
+			ingresarObjetos(objetos); // Guarda los objetos en la BBDD
 		}
 	}
 
@@ -305,152 +301,64 @@ public class InsertarDatosGeograficos {
 
 		
 		String[] espacioNatural = archivo.split("</espacio-natural>");
-		
-		String[] nombreAux1 = null;
-		String[] nombreAux2 = null;
-		String[] nombres = new String[espacioNatural.length - 1];// declaro el tamaño
-		String nombre = "";
-		
-		String[] descripcionAux1 = null;
-		String[] descripcionAux2 = null;
-		String[] descripciones = new String[espacioNatural.length - 1];// declaro el tamaño
-		String descripcion = "";
-//		String[] municipios = new String[estaciones.length - 1];// declaro el tamaño
-//		String[] direccionAux = null;
-//		String[] dir = null;
-//		String[] direcciones = new String[estaciones.length - 1];// declaro el tamaño
-//		String[] latitudAux = null;
-//		String[] lat = null;
-//		String[] latitudes = new String[estaciones.length - 1];// declaro el tamaño
-//		String[] longitudAux = null;
-//		String[] longit = null;
-//		String[] longitudes = new String[estaciones.length - 1];// declaro el tamaño
 
-//		String municipio = "";
-//		String direccion = "";
-//		String latitudString = "";
-//		String latitud = "";
-//		String longitud = "";
-//		String longitudString = "";
+		String[] nombres = new String[espacioNatural.length - 1];// declaro el tamaño
+
+		String[] descripciones = new String[espacioNatural.length - 1];// declaro el tamaño
+
+		String[] latitud_longitud = new String[espacioNatural.length - 1];// declaro el tamaño
+		String[] latLongAux;
+		
+		double[] latitud = new double[espacioNatural.length - 1];// declaro el tamaño
+		
+		double[] longitud = new double[espacioNatural.length - 1];// declaro el tamaño
+
+		String[] tipo = new String[espacioNatural.length - 1];// declaro el tamaño
+
+		String[] web = new String[espacioNatural.length - 1];// declaro el tamaño
 
 		
 		for (int i = 0; i < espacioNatural.length - 1; i++) { // Recorre cada espacio
 
 			// Nombre
-//			nombreAux1 = espacioNatural[i].split("<documentName>");
-//			
-//			for (int j = 0; j < nombreAux1.length; j++) {
-//				nombreAux2 = nombreAux1[j].split("</documentName>");
-//				if (!nombreAux2[j].contains("<espacio-natural>")) {
-//					nombre = nombreAux2[0];
-//				}			
-//			}
 			nombres[i] = extraerDato(espacioNatural[i], "documentName");
-//			nombres[i] = nombre;
-			
-//			// Descipción
-//			descripcionAux1 = espacioNatural[i].split("<turismDescription>");
-//			
-//			for (int j = 0; j < descripcionAux1.length; j++) {
-//				descripcionAux2 = descripcionAux1[j].split("</turismDescription>");
-//				if (!descripcionAux2[j].contains("<espacio-natural>")) {
-//					descripcion = descripcionAux2[0];
-//				}			
-//			}
-//			
-//			descripciones[i] = descripcion;
-		}
-
-//			// Municipio
-//			municipiosAux = estaciones[i].split("<Town>");
-//			for (int k = 0; k < municipiosAux.length; k++) {
-//				if (municipiosAux[k].contains("</Town>")) {
-//					pueblos = municipiosAux[k].split("<CoordenatesXETRS89>");
-//					municipio = pueblos[0].substring(0, pueblos[0].length() - 7);
-//					// Corrijo los nombres de las poblaciones para que coincidan las claves ajenas con los de la tabla "municipios"
-//					if (municipio.contains("Donostia"))
-//						municipio = "San Sebastian";
-//					if (municipio.contains("Agurain"))
-//						municipio = "Salvatierra";
-//					if (municipio.contentEquals("Valdegovía/Gaubea"))
-//						municipio = "Villanueva de Valdegovía";
-//					if (municipio.contentEquals("Laudio/Llodio"))
-//						municipio = "Laudio";
-//					if (municipio.contentEquals("Arrasate/Mondragón"))
-//						municipio = "Arrasate";
-//				}
-//			}
-//			municipios[i] = municipio;
-//
-//			// Dirección
-//			direccionAux = estaciones[i].split("<Address>");
-//			for (int m = 0; m < direccionAux.length; m++) {
-//				if (direccionAux[m].contains("</Address>")) {
-//					dir = direccionAux[m].split("<Town>");
-//					direccion = dir[0].substring(0, dir[0].length() - 10);
-//				}
-//			}
-//			direcciones[i] = direccion;
-//
-//			// Latitud
-//			latitud = "";
-//			latitudAux = estaciones[i].split("<Latitude>");
-//			for (int o = 0; o < latitudAux.length; o++) {
-//				if (latitudAux[o].contains("</Latitude>")) {
-//					lat = latitudAux[o].split("<Longitude>");
-//					latitudString = lat[0].substring(0, lat[0].length() - 11);
-//
-//					for (int q = 0; q < latitudString.length(); q++) { // Cambio la ',' por '.'
-//						if (latitudString.charAt(q) == ',') {
-//							latitud += '.';
-//						} else {
-//							latitud += latitudString.charAt(q);
-//						}
-//					}
-//				}
-//			}
-//			latitudes[i] = latitud;
-//
-//			// Longitud
-//			longitud = "";
-//			longitudAux = estaciones[i].split("<Longitude>");
-//			for (int r = 0; r < longitudAux.length; r++) {
-//				if (longitudAux[r].contains("</Longitude>")) {
-//					longit = longitudAux[r].split("<Province>");
-//					longitudString = longit[0].substring(0, longit[0].length() - 12);
-//					for (int t = 0; t < longitudString.length(); t++) { // Cambio la ',' por '.'
-//						if (longitudString.charAt(t) == ',') {
-//							longitud += '.';
-//						} else {
-//							longitud += longitudString.charAt(t);
-//						}
-//					}
-//				}
-//			}
-//			longitudes[i] = longitud;
-			
-			
-
-//		} // Fin bucle espacios-naturales	
-
-//		// Crea los objetos con la información de las estaciones (nombre, municipio,
-//		// direccion, latitud y longitud)
-//		objetos = new EstacionesMetereologicas[estaciones.length - 1]; // declaro el tamaño
-//
-//		for (int i = 0; i < estaciones.length - 1; i++) {
-//			objetos[i] = new EstacionesMetereologicas();
-//			objetos[i].setNombre(nombres[i]);
-//			objetos[i].setMunicipios(municipios[i]);
-//			objetos[i].setDireccion(direcciones[i]);
-//			objetos[i].setLatitud(Double.valueOf(latitudes[i]));
-//			objetos[i].setLongitud(Double.valueOf(longitudes[i]));
-//		}
-
-	for(int z=0; z<descripciones.length ; z++) {
-		System.out.println(nombres[z]);
-	}	
-
 		
+			// Descipción
+			descripciones[i] = extraerDato(espacioNatural[i], "turismDescription");
+			
+			// Latitud + Longitud
+			latitud_longitud[i] = extraerDato(espacioNatural[i], "latitudelongitude");
+			
+			latLongAux = latitud_longitud[i].split(",");
+			if(latLongAux.length == 2) {
+				latitud[i] = Double.parseDouble(latLongAux[0]);
+				longitud[i] = Double.parseDouble(latLongAux[1]);
+			} else {
+				latitud[i] = 0.0;
+				longitud[i] = 0.0;
+			}
+			
+			// tipo
+			tipo[i] = extraerDato(espacioNatural[i], "natureType");
+			
+			// web
+			web[i] = extraerDato(espacioNatural[i], "friendlyUrl");
+			
+		}// Fin bucle espacios-naturales	
+			
+
+		// Crea los objetos con la información de los espacios naturales (nombre, descripcion, latitud, longitud, tipo y web)
+		objetos = new EspaciosNaturales[espacioNatural.length - 1]; // declaro el tamaño
+
+		for (int i = 0; i < espacioNatural.length - 1; i++) {
+			objetos[i] = new EspaciosNaturales();
+			objetos[i].setNombre(nombres[i]);
+			objetos[i].setDescripcion(descripciones[i]);
+			objetos[i].setLatitud(latitud[i]);
+			objetos[i].setLongitud(longitud[i]);
+			objetos[i].setTipo(tipo[i]);
+			objetos[i].setWeb(web[i]);
+		}		
 		
 		return objetos;
 	}
