@@ -27,7 +27,7 @@ public class JSONtoXML {
     static String[] archivos = { "index", "estaciones", "espacios-naturales", "municipios", "descripcionMunicipios" };
     static String[] contenedores = { "index", "estación", "espacio-natural", "municipio", "descripcionMunicipios" };
 
-    public static void main(String[] args) throws FileNotFoundException, IOException, JSONException {
+    public void JSONtoXML() throws FileNotFoundException, IOException, JSONException {
 	for (int num = 0; num < archivos.length; num++) {
 	    String direccionArchivoEntrada = "./archivos//" + archivos[num] + ".json";
 	    String direccionArchivoSalida = "./archivos//" + archivos[num] + ".xml";
@@ -68,7 +68,7 @@ public class JSONtoXML {
 	}
     }
 
-    public static String leerArchivo(String rutaArchivo) {
+    public String leerArchivo(String rutaArchivo) {
 	StringBuilder acumuladoCadena = new StringBuilder();
 	try {
 		InputStream in;
@@ -94,7 +94,7 @@ public class JSONtoXML {
 	return acumuladoCadena.toString();
     }
 
-    public static String prepararArchivo(String archivo, String contenedor) {
+    public String prepararArchivo(String archivo, String contenedor) {
 	String archivoSinCabecera = "";
 	String archivoSinFinal = "";
 	String archivoFinal = "";
@@ -121,7 +121,7 @@ public class JSONtoXML {
 	return archivoFinal;
     }
 
-    public static String renombrarEtiquetasDuplicadas(String archivo) {
+    public String renombrarEtiquetasDuplicadas(String archivo) {
 	String archivoCorregido = "";
 	String archivoFinal = "";
 	int contador1 = 0;
@@ -181,7 +181,7 @@ public class JSONtoXML {
 	return archivoFinal;
     }
 
-    public static String convertir(String json, String raiz) throws JSONException {
+    public String convertir(String json, String raiz) throws JSONException {
 	JSONObject objetoJson = new JSONObject(json);
 	String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><" + raiz + ">" + org.json.XML.toString(objetoJson)
 		+ "</" + raiz + ">";
@@ -189,7 +189,7 @@ public class JSONtoXML {
 	return xml;
     }
 
-    public static void escribirArchivo(String rutaArchivo, String salida){
+    public void escribirArchivo(String rutaArchivo, String salida){
 
 	try {
 		FileWriter escritor = new FileWriter(rutaArchivo);

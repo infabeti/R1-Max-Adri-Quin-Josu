@@ -23,7 +23,7 @@ public class InsertarDatosGeograficos {
     static String[] archivos = { "municipios", "estaciones", "espacios-naturales" };
     static String[] contenedores = { "municipio", "estación", "espacio-natural" };
 
-	public static void main(String[] args) {
+	public void InsertarDatosGeograficos() {
 		Object[] objetos = null;
 
 		for (int num = 0; num < archivos.length; num++) {
@@ -49,7 +49,7 @@ public class InsertarDatosGeograficos {
 		}
 	}
 
-	public static String leerArchivo(String rutaArchivo) {
+	public String leerArchivo(String rutaArchivo) {
 
 		StringBuilder acumuladoCadena = new StringBuilder();
 		try {
@@ -76,7 +76,7 @@ public class InsertarDatosGeograficos {
 		return acumuladoCadena.toString();
 	}
 
-	public static Municipios[] extraerDatosMunicipios(String archivo) {
+	public Municipios[] extraerDatosMunicipios(String archivo) {
 		Municipios[] objetos = null;
 		
 		String[] municipios;
@@ -145,7 +145,7 @@ public class InsertarDatosGeograficos {
 		return objetos;
 	}
 
-	public static EstacionesMetereologicas[] extraerDatosEstaciones(String archivo) {
+	public EstacionesMetereologicas[] extraerDatosEstaciones(String archivo) {
 		EstacionesMetereologicas[] objetos = null;
 
 		String[] estaciones = archivo.split("</estación>");
@@ -296,7 +296,7 @@ public class InsertarDatosGeograficos {
 		return objetos;
 	}
 
-	public static EspaciosNaturales[] extraerDatosEspaciosNaturales(String archivo) {
+	public EspaciosNaturales[] extraerDatosEspaciosNaturales(String archivo) {
 		EspaciosNaturales[] objetos = null;
 
 		
@@ -363,7 +363,7 @@ public class InsertarDatosGeograficos {
 		return objetos;
 	}
 	
-	public static void ingresarObjetos(Object[] objetos) {
+	public void ingresarObjetos(Object[] objetos) {
 		for (int i = 0; i < objetos.length; i++) {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -376,7 +376,7 @@ public class InsertarDatosGeograficos {
 		}
 	}
 	
-	public static String extraerDato(String archivo, String etiqueta) {
+	public String extraerDato(String archivo, String etiqueta) {
 		String dato = "";
 		String etiquetaIzqda = "<" + etiqueta + ">";
 		String etiquetaDrcha = "</" + etiqueta + ">";

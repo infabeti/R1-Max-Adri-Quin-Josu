@@ -18,14 +18,15 @@ import javax.net.ssl.X509TrustManager;
 public class DescargarJSON {
 
     /*
-     * Descargará los 4 archivos .json que necesitamos: ● JSON (35.02 KB) - Diarios,
-     * horarios e índices de calidad del aire ● JSON (16.23 KB) - Estaciones de
-     * medición ● JSON (129.41 KB) - Espacios naturales ● JSON (1.03 MB) -
-     * Municipios
+     * Descargará los 4 archivos .json que necesitamos: 
+     * ● JSON (35.02 KB) - Diarios, horarios e índices de calidad del aire 
+     * ● JSON (16.23 KB) - Estaciones de medición 
+     * ● JSON (129.41 KB) - Espacios naturales 
+     * ● JSON (1.03 MB) - Municipios
      */
 
     // método para bypass los certificados
-    private static void trustEveryone() {
+    private void trustEveryone() {
 	try {
 	    HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
 		public boolean verify(String hostname, SSLSession session) {
@@ -51,7 +52,7 @@ public class DescargarJSON {
     }
 
     // método para descargar los archivos
-    public static void descargarJSON(String[] direcciones, String[] archivos, String ruta) {
+    public void descargarJSON(String[] direcciones, String[] archivos, String ruta) {
 
 	try {
 	    trustEveryone(); // Para evitar el error de los certificados
@@ -88,7 +89,7 @@ public class DescargarJSON {
 	}
     }
 
-    public static void main(String[] args) {
+    public void DescargarJSON() {
 	String[] direcciones = {
 		"https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/index.json",
 		"https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/estaciones.json",
