@@ -100,6 +100,9 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 	
 	public static void editarjlist(Object object) {
 		List hql =  (List) object;
+		if(object instanceof Municipios) {
+			System.out.println("vgfdhdshbklfjhxzdkljlkjdszhjnvc");
+		}
 		DefaultListModel modelo = new DefaultListModel();
 		for(int x = 0; x <=hql.size()-1;x++) {
 			modelo.addElement(hql.get(x));
