@@ -9,9 +9,9 @@ package modelo;
 
 public class InsertarDatosAtmosfericos {
 
-	static String[] estacionesMeteo = new String[59];
+	String[] estacionesMeteo = new String[59];
 
-	public static void main(String[] args) {
+	public void InsertarDatosAtmosfericos() {
 		InsertarDatosGeograficos obj = new InsertarDatosGeograficos(); // Instancia para llamar a los métodos de la
 																		// clase InsertarDatosGeograficos
 		CalidadAire[] objetos = new CalidadAire[estacionesMeteo.length];
@@ -88,7 +88,7 @@ public class InsertarDatosAtmosfericos {
 
 	}
 
-	public static CalidadAire extraerDatosCalidadAire(String archivo, String estacion, int intento) {
+	public CalidadAire extraerDatosCalidadAire(String archivo, String estacion, int intento) {
 
 		int sinDatos = 0;
 		String[] datos = archivo.split(estacion);
@@ -152,7 +152,7 @@ public class InsertarDatosAtmosfericos {
 		}
 	}
 
-	public static String extraerDato(String archivo, String etiqueta) {
+	public String extraerDato(String archivo, String etiqueta) {
 		String dato = "";
 		String etiquetaIzqda = "<" + etiqueta + ">";
 		String etiquetaDrcha = "</" + etiqueta + ">";

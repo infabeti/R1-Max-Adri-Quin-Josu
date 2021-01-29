@@ -20,7 +20,7 @@ import org.hibernate.Session;
 
 public class InsertarRelacionExiste {
 
-	public static void main(String[] args) {
+	public void InsertarRelacionExiste() {
 
 		String xml = leerArchivo("./archivos/espacios-naturales.xml"); // Lee el archivo
 
@@ -29,7 +29,7 @@ public class InsertarRelacionExiste {
 		ingresarObjetos(objetos); // Guarda los objetos en la BBDD
 	}
 
-	public static String leerArchivo(String rutaArchivo) {
+	public String leerArchivo(String rutaArchivo) {
 
 		StringBuilder acumuladoCadena = new StringBuilder();
 		try {
@@ -56,13 +56,14 @@ public class InsertarRelacionExiste {
 		return acumuladoCadena.toString();
 	}
 
-	public static RelacionExiste[] extraerDatosRelacionExiste(String archivo) {
+	public RelacionExiste[] extraerDatosRelacionExiste(String archivo) {
+	    InsertarDatosGeograficos insertarDatosGeograficos = new InsertarDatosGeograficos();
 		Object[] nombresMunicipios = null;
 		RelacionExiste relacion = null;
 		ArrayList<RelacionExiste> relaciones = new ArrayList<RelacionExiste>(); // Create an ArrayList object
 
 		String xml = leerArchivo("./archivos/municipios.xml");
-		nombresMunicipios = InsertarDatosGeograficos.extraerDatosMunicipios(xml);
+		nombresMunicipios = insertarDatosGeograficos.extraerDatosMunicipios(xml);
 
 		RelacionExiste[] objetos = null;
 
@@ -112,7 +113,7 @@ public class InsertarRelacionExiste {
 		return objetos;
 	}
 
-	public static void ingresarObjetos(Object[] objetos) {
+	public void ingresarObjetos(Object[] objetos) {
 		for (int i = 0; i < objetos.length; i++) {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -125,8 +126,8 @@ public class InsertarRelacionExiste {
 		}
 	}
 
-	public static String extraerDato(String archivo, String etiqueta) {
-		String dato = "";
+	public String extraerDato(String archivo, String etiqueta) {
+		String dato = null;
 		String etiquetaIzqda = "<" + etiqueta + ">";
 		String etiquetaDrcha = "</" + etiqueta + ">";
 		String[] corte1 = archivo.split(etiquetaIzqda);
@@ -142,6 +143,6 @@ public class InsertarRelacionExiste {
 		if (dato != null)
 			return dato;
 		else
-			return "SIN DATO";
+			return "";
 	}
 }
