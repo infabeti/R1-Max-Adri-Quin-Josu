@@ -1,5 +1,7 @@
 package modelo;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,8 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "municipios")
-public class Municipios implements java.io.Serializable {
-	
+public class Municipios implements Serializable {
+	private static final long serialVersionUID = 4390482518182625971L;
+
 	@Id
 	@Column(name = "nombre")
 	private String nombre;
@@ -95,11 +98,11 @@ public class Municipios implements java.io.Serializable {
 	public String toString() {
 		String mandar = "";
 		if (idProvincia == 1){
-			mandar = "Alava \t" + idProvincia + "\t " + nombre + "\n";
+			mandar =  nombre + "\t" + " " + idProvincia + "\t " +"Alava \n";
 		}else if(idProvincia == 20) {
-			mandar = "Guipuzkoa \t" + idProvincia + "\t " + nombre + "\n";
+			mandar = nombre + "\t" + " " + idProvincia + "\t " +"Guipuzkoa \n";
 		}else {
-			mandar = "Bizkaia \t" + idProvincia + "\t " + nombre + "\n";
+			mandar = nombre + "\t" + " " + idProvincia + "\t " +"Bizkaia \n";
 		}
 		return mandar;
 	}

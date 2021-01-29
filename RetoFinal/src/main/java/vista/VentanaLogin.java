@@ -11,18 +11,18 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.Socket;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class VentanaLogin extends JFrame{
 	private JPanel contentPane;
 	private JTextField textField;
 	
-	//Lanza la conexiï¿½n de un administrador
+	//Lanza la conexi�n de un administrador
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -62,7 +62,6 @@ public class VentanaLogin extends JFrame{
 		lblNewLabel_1.setVisible(false);
 		
 		JButton btnNewButton = new JButton("Aceptar");
-		contentPane.setFocusable(true);
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -95,7 +94,7 @@ public class VentanaLogin extends JFrame{
 		});
 		btnNewButton.addActionListener(new ActionListener() {
 			
-			public void actionPerformed(ActionEvent e) { //Acciï¿½n del botï¿½n Aceptar
+			public void actionPerformed(ActionEvent e) { //Acci�n del bot�n Aceptar
 				lblNewLabel_1.setVisible(false);
 				if(!textField.getText().equals("") && ( 
 					textField.getText().equals("AdrianQ") || 

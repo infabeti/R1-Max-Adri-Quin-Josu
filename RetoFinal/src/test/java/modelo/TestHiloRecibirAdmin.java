@@ -17,6 +17,6 @@ public class TestHiloRecibirAdmin {
 		String texto = null;
 		ObjectInputStream oentrada = null;
 		JButton botonEnviar = null;
-		HR = new HiloRecibirAdmin(textArea, texto, oentrada, botonEnviar);
+		HR = new HiloRecibirAdmin(texto, oentrada);
 	}
 }

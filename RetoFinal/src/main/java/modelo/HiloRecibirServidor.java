@@ -3,12 +3,9 @@ package modelo;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.io.Serializable;
 
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-public class HiloRecibirServidor extends Thread {
+public class HiloRecibirServidor extends Thread implements Serializable{
 	ObjectOutputStream objetoSalida = null;
 	ObjectInputStream objetoEntrada = null;
 	
@@ -19,19 +16,16 @@ public class HiloRecibirServidor extends Thread {
 	
 	public void run() {
 		String consulta = "";
-		String respuesta = "";
 		
 		while (!consulta.equals("ADIOS")) {
 			try {
 				consulta = (String) objetoEntrada.readObject();
 				if (consulta.contains("CONSULTA--> ")) {
 					consulta = consulta.substring(12);
-					respuesta = modelo.Consultas.Consultas(consulta);
-					objetoSalida.writeObject(respuesta);
-				} else {
+					objetoSalida.writeObject(modelo.Consultas.Consultas(consulta));
+				}else {
 					System.out.println(consulta);
 				}
-				
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -42,4 +36,3 @@ public class HiloRecibirServidor extends Thread {
 	System.out.println("Termino este hilo del servidor");
 	}
 }
-

@@ -5,41 +5,44 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import javax.swing.JButton;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 public class Administrador {
 	private int puerto = 5000;
 	private String host = "localhost";
 	Socket socket = null;
-	JTextArea textArea = null;
 	String texto = null;
 	ObjectOutputStream fsalida = null;
-	JButton botonEnviar = null;
 
 	public Administrador() {
 
 	}
 
-	public Administrador(Socket socket, JTextArea textArea, JButton botonEnviar) throws IOException {
+	public Administrador(Socket socket, String texto) throws IOException {
 		this.socket = socket;
-		this.textArea = textArea;
-		this.botonEnviar = botonEnviar;
+		this.texto = texto;
 		ObjectInputStream fentrada = null;
 
 		fsalida = new ObjectOutputStream(socket.getOutputStream());
 		fentrada = new ObjectInputStream(socket.getInputStream());
 
-		HiloRecibirAdmin hilo = new HiloRecibirAdmin(this.textArea, this.texto, fentrada, this.botonEnviar);
+		HiloRecibirAdmin hilo = new HiloRecibirAdmin(this.texto, fentrada);
+		hilo.start();
+	}
+	public Administrador(Socket socket) throws IOException {
+		this.socket = socket;
+		ObjectInputStream fentrada = null;
+
+		fsalida = new ObjectOutputStream(socket.getOutputStream());
+		fentrada = new ObjectInputStream(socket.getInputStream());
+
+		HiloRecibirAdmin hilo = new HiloRecibirAdmin(this.texto, fentrada);
 		hilo.start();
 	}
 
 	public void enviarMensaje(String mensaje) {
 		try {
-			if (botonEnviar.isEnabled())
-				fsalida.writeObject(mensaje);
-		} catch (IOException e) {
+			fsalida.writeObject(mensaje);
+		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
 	}

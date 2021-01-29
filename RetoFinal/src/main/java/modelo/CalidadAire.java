@@ -145,4 +145,14 @@ public class CalidadAire implements java.io.Serializable {
 	public void setNomEstMet(String nomEstMet) {
 		this.nomEstMet = nomEstMet;
 	}
+
+	@Override
+	public String toString() {
+		String mandar = "";
+		mandar = nomEstMet + "\n Monoxido de carbono=" + comgm3 + "\n Monoxido de carbono 8h=" + co8hmgm3 + "\n oxido nitroso=" + nogm3 
+				+ "\n dioxido de nitrogeno=" + no2gm3 + "\n oxidos de nitrogeno=" + noxgm3 + "\n pm10=" + pm10gm3 + "\n pm25=" + pm25gm3
+				+ "\n dioxido de azufre=" + so2gm3 + "\n fechaHora=" + fechaHora;
+		return mandar;
+	}
+	
 }

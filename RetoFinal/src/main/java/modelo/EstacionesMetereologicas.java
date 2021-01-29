@@ -84,5 +84,10 @@ public class EstacionesMetereologicas implements java.io.Serializable {
 	public void setLongitud(Double longitud) {
 		this.longitud = longitud;
 	}
+	public String toString() {
+		String mandar = "";
+			mandar =  nombre + "\t " + direccion + "\t " + municipios + "\n";
 
+		return mandar;
+	}
 }
