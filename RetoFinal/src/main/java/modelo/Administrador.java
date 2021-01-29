@@ -46,6 +46,17 @@ public class Administrador {
 			e.printStackTrace();
 		}
 	}
+	public void enviarMensaje(String[] mensaje) {
+		try {
+			for(int i = 0; i < mensaje.length; i++) {
+				fsalida.writeObject(mensaje);
+			}
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
 
 	public int getPuerto() {
 		return puerto;

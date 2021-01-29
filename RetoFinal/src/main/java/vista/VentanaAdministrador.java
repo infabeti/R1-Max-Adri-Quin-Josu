@@ -9,6 +9,9 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import modelo.Administrador;
+import modelo.CalidadAire;
+import modelo.Municipios;
+
 import javax.swing.JRadioButton;
 import java.awt.Font;
 import javax.swing.JList;
@@ -46,6 +49,7 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 		btnTodosLosMunicipios.addActionListener(this);
 		btnfiltro.addActionListener(this);
 		btninfo.addActionListener(this);
+		btnTiempo.addActionListener(this);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		socket = s;
@@ -87,6 +91,7 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 		
 		btnTiempo.setBounds(430, 172, 141, 23);
 		getContentPane().add(btnTiempo);
+		btnTiempo.setEnabled(false);
 		
 		admin = new Administrador(socket);
 		admin.enviarMensaje("> " + nick + " se ha conectado\n");
@@ -101,32 +106,23 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 		}
 			list.setModel(modelo);
 	}
+	
 	// accion cuando pulsamos botones
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnTiempo) { //sacar el tiempo atmosferico
 			int tiempo=0;
+			String[] separado = new String[10];
 			try {
 				String buscar = (String) list.getSelectedValue().toString();				
-//				for(int x = 0; x <=buscar.length()-1;x++) {
-//					if(buscar.indexOf("1")>-1) {
-//						tiempo = buscar.indexOf("1");
-//					}else if(buscar.indexOf("2")>-1) {
-//						tiempo = buscar.indexOf("2");
-//					}else if(buscar.indexOf("4")>-1){
-//						tiempo = buscar.indexOf("4");
-//					}else {
-//						JOptionPane.showInputDialog("NO!!");
-//					}
-//					x = buscar.length()-1;
-//				}
-//				buscar = buscar.substring(0, tiempo);
-				System.out.println(buscar);
-			filtro = "select c from CalidadAire c where c.nomEstMet = "
-					+ "(select nombre from EstacionesMeteorologicas where nombre = '" + buscar.trim() + "')";
+				separado = buscar.split(" ");
+				System.out.println(separado[0]);
+			filtro = "select c from CalidadAire c where c.nomEstMet = '" + separado[0].trim() + "'";
 			admin.enviarMensaje("CONSULTA--> " + filtro);
+			btnTiempo.setEnabled(false);
+			
 			}catch(Exception e1) {
-				JOptionPane.showInputDialog("Por favor, seleccione un minicipio");
-		}
+				JOptionPane.showMessageDialog(null, "Por favor, seleccione un minicipio");
+			}
 		}
 		if (e.getSource() == btninfo) { //accion del boton de la info
 			int espacio=0;
@@ -148,21 +144,31 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 			filtro = "select b from EstacionesMetereologicas b where b.municipios = "
 					+ "(select nombre from Municipios where nombre = '" + buscar.trim() + "')";
 			admin.enviarMensaje("CONSULTA--> " + filtro);
+			btnTiempo.setEnabled(true);
+			btninfo.setEnabled(false);
+			Thread.sleep(500);
+			int tamanio = list.getModel().getSize();
+			if(tamanio == 0) {
+				JOptionPane.showMessageDialog(null, "Este municipio no tiene estaciones meteorologicas");
+				btnTodosLosMunicipios.doClick();
+			}
 			}catch(Exception e1) {
-				JOptionPane.showInputDialog("Por favor, seleccione un minicipio");
+				JOptionPane.showMessageDialog(null, "Por favor, seleccione un minicipio");
 			}
 		}
 		
 		if(e.getSource()== btnTodosLosMunicipios) { //sacar todos los municipios
 			String texto = "CONSULTA--> " + "select a from Municipios a";
 			admin.enviarMensaje(texto);
+			btnTiempo.setEnabled(false);
+			btninfo.setEnabled(true);
 		}
 		
 		if (e.getSource() == botonSalir) { //ACCIÓN AL PULSAR SALIR
 			String texto = nick + " > Abandona el Chat ... \n" ;
 			admin.enviarMensaje(texto);
 			admin.enviarMensaje("ADIOS");
-			System.exit(0);
+			dispose();
 		}
 		
 		if (e.getSource() == btnfiltro) {
@@ -194,6 +200,8 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 				filtro = "select a from Municipios a";
 				admin.enviarMensaje("CONSULTA--> " + filtro);
 			}
+			btnTiempo.setEnabled(false);
+			btninfo.setEnabled(true);
 		}
 		
 	}

@@ -11,7 +11,7 @@ public class Consultas {
 		List hql = session.createQuery(consulta).list();
 		session.getTransaction().commit();
 		session.close();
-		
+
 		return hql;
 	}
 }
