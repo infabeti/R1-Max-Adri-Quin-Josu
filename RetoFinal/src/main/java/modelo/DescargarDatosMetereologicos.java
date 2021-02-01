@@ -12,7 +12,7 @@ public class DescargarDatosMetereologicos {
 		JSONtoXML conversor = new JSONtoXML();
 		DescargarJSON descarga = new DescargarJSON();
 		File archivo;
-		Boolean existe = false, igual = true;
+		Boolean existe = false, igual = true, primeraVez = true;
 		String[] lineas;
 		String direccionArchivoEntrada = "./archivos/index.json";
 		String listadoUrls = "";
@@ -45,6 +45,11 @@ public class DescargarDatosMetereologicos {
 		if(archivo.exists()) {
 			ruta = "./archivos/calidadAireTemporal/";
 			existe = true;
+			primeraVez = false;
+		}
+		File directorio = new File("./archivos/calidadAireTemporal");
+		if(!directorio.exists()) {
+			directorio.mkdir();
 		}
 		
 
@@ -85,7 +90,7 @@ public class DescargarDatosMetereologicos {
 			ruta = "./archivos/calidadAire/";
 		}
 		
-		if(!igual) {
+		if(!igual || primeraVez) {
 			//Recorre todos los archivos
 			for (int num = 0; num < archivos.length; num++) {
 				String direccionArchivoEntrada2 = ruta + nombreArchivo[num] + ".json";
