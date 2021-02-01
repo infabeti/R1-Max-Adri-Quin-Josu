@@ -27,16 +27,16 @@ public class IniciarServer {
 		File archivoEstaciones = new File("./archivos/estaciones.json");
 		File archivoEspNaturales = new File("./archivos/espacios-naturales.json");
 		
-		if (!archivoIndex.exists()) {
+		if (archivoIndex.exists()) {
 		    existen = true;
 		}
-		if (!archivoMunicipios.exists()) {
+		if (archivoMunicipios.exists()) {
 		    existen = true;
 		}
-		if (!archivoEstaciones.exists()) {
+		if (archivoEstaciones.exists()) {
 		    existen = true;
 		}
-		if (!archivoEspNaturales.exists()) {
+		if (archivoEspNaturales.exists()) {
 		    existen = true;
 		}
 	
@@ -44,16 +44,27 @@ public class IniciarServer {
 		    DescargarJSON descargarJSON = new DescargarJSON();
 		    JSONtoXML jsonToXml = new JSONtoXML();
 		    InsertarDatosGeograficos insertarDatosGeograficos = new InsertarDatosGeograficos();
+		    InsertarRelacionExiste insertarRelacionExiste = new InsertarRelacionExiste();
 		    DescargarDatosMetereologicos descargarDatosMetereologicos = new DescargarDatosMetereologicos();
 		    InsertarDatosAtmosfericos insertarDatosAtmosfericos = new InsertarDatosAtmosfericos();
-		    InsertarRelacionExiste insertarRelacionExiste = new InsertarRelacionExiste();
+		    
 	
 		    descargarJSON.DescargarJSON();
 		    jsonToXml.JSONtoXML();
 		    insertarDatosGeograficos.InsertarDatosGeograficos();
+		    insertarRelacionExiste.InsertarRelacionExiste();
 		    descargarDatosMetereologicos.DescargarDatosMetereologicos();
 		    insertarDatosAtmosfericos.InsertarDatosAtmosfericos();
-		    insertarRelacionExiste.InsertarRelacionExiste();
+		    
+		}else {
+			DescargarDatosMetereologicos descargarDatosMetereologicos = new DescargarDatosMetereologicos();
+		    InsertarDatosAtmosfericos insertarDatosAtmosfericos = new InsertarDatosAtmosfericos();
+			
+			Boolean igual = descargarDatosMetereologicos.DescargarDatosMetereologicos();
+		    if(!igual) {
+		    	insertarDatosAtmosfericos.InsertarDatosAtmosfericos();
+		    }
+		    
 		}
     }
 }

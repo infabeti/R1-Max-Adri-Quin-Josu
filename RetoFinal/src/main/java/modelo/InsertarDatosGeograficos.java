@@ -368,7 +368,7 @@ public class InsertarDatosGeograficos {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 
-			session.save(objetos[i]);
+			session.saveOrUpdate(objetos[i]);
 
 			session.getTransaction().commit();
 			HibernateUtil.shutdown();

@@ -1,14 +1,18 @@
 package modelo;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class DescargarDatosMetereologicos {
 
-	public void DescargarDatosMetereologicos() throws FileNotFoundException, IOException {
+	public Boolean DescargarDatosMetereologicos() throws FileNotFoundException, IOException {
 		
 		JSONtoXML conversor = new JSONtoXML();
 		DescargarJSON descarga = new DescargarJSON();
+		File archivo;
+		Boolean existe = false, igual = true;
 		String[] lineas;
 		String direccionArchivoEntrada = "./archivos/index.json";
 		String listadoUrls = "";
@@ -36,6 +40,13 @@ public class DescargarDatosMetereologicos {
 		archivos = acum.split(",");
 
 		String ruta = "./archivos/calidadAire/";
+	
+		archivo = new File(ruta + archivos[0]);
+		if(archivo.exists()) {
+			ruta = "./archivos/calidadAireTemporal/";
+			existe = true;
+		}
+		
 
 		descarga.descargarJSON(direcciones, archivos, ruta);
 
@@ -47,26 +58,61 @@ public class DescargarDatosMetereologicos {
 		}
 		nombreArchivo = nombreArchivos.split(",");
 
-		//Recorre todos los archivos
-		for (int num = 0; num < archivos.length; num++) {
-			String direccionArchivoEntrada2 = ruta + nombreArchivo[num] + ".json";
-			String direccionArchivoSalida = ruta + nombreArchivo[num] + ".xml";
-
-			jsonOrigen = conversor.leerArchivo(direccionArchivoEntrada2); // Lee el archivo
-			System.out.println("LEER ARCHIVO" + nombreArchivo[num] + ".json");
-
-			if (jsonOrigen.length()>0) {
-				String jsonPreparado = conversor.prepararArchivo(jsonOrigen, nombreArchivo[num]); // Prepara el archivo: quita cabecera
-				System.out.println("PREPARAR ARCHIVO" + nombreArchivo[num] + ".json");
-
-				String xml = conversor.convertir(jsonPreparado, nombreArchivo[num]); // Establezco el nombre del tag raiz																		// del XML
-				System.out.println("CONVERTIR ARCHIVO" + nombreArchivo[num] + ".json --> " + nombreArchivo[num] + ".xml");
-
-				conversor.escribirArchivo(direccionArchivoSalida, xml); // Escribe el archivo XML
-				System.out.println("ESCRIBIR ARCHIVO" + nombreArchivo[num] + ".xml");
+		//Comprueba si son distintos
+		
+		if(existe) {
+			for (int i = 0; i < archivos.length && igual; i++) {
+				jsonOrigen = conversor.leerArchivo(ruta + archivos[i]); // Lee el archivo
+				System.out.println("COMPARAR ARCHIVO " + nombreArchivo[i] + ".json");
+			
+				String jsoncomparar = conversor.leerArchivo("./archivos/calidadAire/" + archivos[i]);
+				CompararJSON comp = new CompararJSON();
+				if(!comp.compararCifrado(comp.cifrar(jsoncomparar), comp.cifrar(jsonOrigen))) {
+					igual = false;
+					File carpeta = new File("./archivos/calidadAire");
+					File[] listaFicheros = carpeta.listFiles();
+					for (int j = 0; j < listaFicheros.length; j++) {
+						listaFicheros[j].delete();
+					}
+					if(carpeta.delete()) {
+						File carpeta2 = new File("./archivos/calidadAireTemporal");
+						carpeta2.renameTo(carpeta);
+						File carpeta3 = new File("./archivos/calidadAireTemporal");
+						carpeta3.mkdir();
+					}
+				}
 			}
-			
-			
+			ruta = "./archivos/calidadAire/";
 		}
+		
+		if(!igual) {
+			//Recorre todos los archivos
+			for (int num = 0; num < archivos.length; num++) {
+				String direccionArchivoEntrada2 = ruta + nombreArchivo[num] + ".json";
+				String direccionArchivoSalida = ruta + nombreArchivo[num] + ".xml";
+
+				jsonOrigen = conversor.leerArchivo(direccionArchivoEntrada2); // Lee el archivo
+				System.out.println("LEER ARCHIVO " + nombreArchivo[num] + ".json");
+	
+				if (jsonOrigen.length()>0) {
+					String jsonPreparado = conversor.prepararArchivo(jsonOrigen, nombreArchivo[num]); // Prepara el archivo: quita cabecera
+					System.out.println("PREPARAR ARCHIVO " + nombreArchivo[num] + ".json");
+	
+					String xml = conversor.convertir(jsonPreparado, nombreArchivo[num]); // Establezco el nombre del tag raiz																		// del XML
+					System.out.println("CONVERTIR ARCHIVO " + nombreArchivo[num] + ".json --> " + nombreArchivo[num] + ".xml");
+	
+					conversor.escribirArchivo(direccionArchivoSalida, xml); // Escribe el archivo XML
+					System.out.println("ESCRIBIR ARCHIVO " + nombreArchivo[num] + ".xml");
+				}
+			}
+		}else {
+			File carpeta = new File("./archivos/calidadAireTemporal");
+			File[] listaFicheros = carpeta.listFiles();
+			for (int i = 0; i < listaFicheros.length; i++) {
+				listaFicheros[i].delete();
+			}
+		}
+		
+		return igual;
 	}
 }
