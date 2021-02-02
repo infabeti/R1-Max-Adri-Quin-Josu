@@ -1,6 +1,5 @@
 package Vista;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -21,10 +20,16 @@ public class TestLogin {
 	}
 //	@Test
 //	public void VentanaAdminTest() throws IOException {
-//		Socket s = null;
-//		String Nombre="Josu";
-//		VentanaAdministrador frame = new VentanaAdministrador(s, Nombre);
+//		Socket s=null;
+//		VentanaAdministrador frame = new VentanaAdministrador(s,"Test");
 //		frame.setVisible(true);		
 //		assertTrue(frame.isVisible());
+//	}
+//	@Test
+//	public void EditarJlistTest() throws IOException {
+//		Socket s=null;
+//		VentanaAdministrador frame = new VentanaAdministrador(s,"Test");
+//		Object object={"Basauri",1,"",2.2,3.3};
+//		frame.editarjlist(object);
 //	}
 }

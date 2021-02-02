@@ -40,12 +40,4 @@ public class TestInsertarRelacionExiste {
 	System.out.println(Resultado.length);
 		assertTrue(Resultado.length>0);
 	}
-//	@Test
-//	public void RelacionExisteNOTest() {	
-//		String Ruta="ArchivosTest\\TestLeer.xml";
-//		String Contenido=RelacionExiste.leerArchivo(Ruta);
-//		Object[] Resultado=RelacionExiste.extraerDatosRelacionExiste(Contenido);
-//	System.out.println(Resultado.length);
-//		assertTrue(Resultado.length==0);
-//	}
 }
