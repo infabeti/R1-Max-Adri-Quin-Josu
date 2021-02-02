@@ -149,9 +149,9 @@ public class CalidadAire implements java.io.Serializable {
 	@Override
 	public String toString() {
 		String mandar = "";
-		mandar = "Comgm3=" + comgm3 + "\n CO8hmgm3=" + co8hmgm3 + "\n Nogm3=" + nogm3 
-				+ "\n NOgm3=" + no2gm3 + "\n NOXgm3=" + noxgm3 + "\n PM10gm3=" + pm10gm3 + "\n PM25gm3=" + pm25gm3
-				+ "\n SO2gm3=" + so2gm3 + "\n fechaHora=" + fechaHora;
+//		mandar = "Comgm3=" + comgm3 + "\n CO8hmgm3=" + co8hmgm3 + "\n Nogm3=" + nogm3 
+//				+ "\n NO2gm3=" + no2gm3 + "\n NOXgm3=" + noxgm3 + "\n PM10gm3=" + pm10gm3 + "\n PM25gm3=" + pm25gm3
+//				+ "\n SO2gm3=" + so2gm3 + "\n fechaHora=" + fechaHora;
 		return mandar;
 	}
 	
