@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 public class DescargarDatosMetereologicos {
 
-	public Boolean DescargarDatosMetereologicos() throws FileNotFoundException, IOException {
+	public Boolean DescargarDatosMetereologicos() {
 		
 		JSONtoXML conversor = new JSONtoXML();
 		DescargarJSON descarga = new DescargarJSON();

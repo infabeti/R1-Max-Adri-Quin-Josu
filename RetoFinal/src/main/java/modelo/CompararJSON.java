@@ -5,8 +5,6 @@ import java.security.NoSuchAlgorithmException;
 
 public class CompararJSON {
 	
-	private String claveUsuario = "123456789";
-	
 	public CompararJSON() {
 		
 	}

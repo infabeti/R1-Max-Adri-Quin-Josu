@@ -41,8 +41,8 @@ public class Servidor extends Thread {
 
 		} catch (IOException e) {
 			System.out.println("Servidor cerrado");
-			
-			System.exit(0);
+			return true;
+			//System.exit(0);
 		}
 		return true;
 	}
