@@ -145,8 +145,8 @@ public class InsertarDatosGeograficos {
 		return objetos;
 	}
 
-	public EstacionesMetereologicas[] extraerDatosEstaciones(String archivo) {
-		EstacionesMetereologicas[] objetos = null;
+	public EstacionesMeteorologicas[] extraerDatosEstaciones(String archivo) {
+		EstacionesMeteorologicas[] objetos = null;
 
 		String[] estaciones = archivo.split("</estación>");
 		String[] nombreAux = null;
@@ -282,10 +282,10 @@ public class InsertarDatosGeograficos {
 
 		// Crea los objetos con la información de las estaciones (nombre, municipio,
 		// direccion, latitud y longitud)
-		objetos = new EstacionesMetereologicas[estaciones.length - 1]; // declaro el tamaño
+		objetos = new EstacionesMeteorologicas[estaciones.length - 1]; // declaro el tamaño
 
 		for (int i = 0; i < estaciones.length - 1; i++) {
-			objetos[i] = new EstacionesMetereologicas();
+			objetos[i] = new EstacionesMeteorologicas();
 			objetos[i].setNombre(nombres[i]);
 			objetos[i].setMunicipios(municipios[i]);
 			objetos[i].setDireccion(direcciones[i]);

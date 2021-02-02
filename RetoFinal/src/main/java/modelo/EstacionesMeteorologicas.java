@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "estaciones_metereologicas")
-public class EstacionesMetereologicas implements java.io.Serializable {
+public class EstacionesMeteorologicas implements java.io.Serializable {
 	
 	@Id
 	@Column(name = "nombre")
@@ -26,16 +26,16 @@ public class EstacionesMetereologicas implements java.io.Serializable {
 	private Double longitud;
 	
 	//Constructor Vacio
-	public EstacionesMetereologicas() {
+	public EstacionesMeteorologicas() {
 	}
 
 	//Constructor nombre
-	public EstacionesMetereologicas(String nombre) {
+	public EstacionesMeteorologicas(String nombre) {
 		this.nombre = nombre;
 	}
 	
 	//Constructor Lleno
-	public EstacionesMetereologicas(String nombre, String municipios, String direccion, Double latitud,
+	public EstacionesMeteorologicas(String nombre, String municipios, String direccion, Double latitud,
 			Double longitud) {
 		this.nombre = nombre;
 		this.municipios = municipios;

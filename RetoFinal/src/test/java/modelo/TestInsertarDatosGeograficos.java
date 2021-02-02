@@ -28,8 +28,8 @@ public class TestInsertarDatosGeograficos {
 	public void TestextraerDatosEstaciones() {
 		String Ruta="ArchivosTest\\estaciones.xml";
 		String texto=Insertar.leerArchivo(Ruta);
-		EstacionesMetereologicas[] Resultado=Insertar.extraerDatosEstaciones(texto);
-		EstacionesMetereologicas[] resultadoEsperado=Resultado;
+		EstacionesMeteorologicas[] Resultado=Insertar.extraerDatosEstaciones(texto);
+		EstacionesMeteorologicas[] resultadoEsperado=Resultado;
 		assertEquals(resultadoEsperado,Resultado);
 	}
 }

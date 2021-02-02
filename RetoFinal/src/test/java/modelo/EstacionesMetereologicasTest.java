@@ -12,9 +12,9 @@ public class EstacionesMetereologicasTest {
     private Double latitud = 43.32047399433485;
     private Double longitud = -3.0741559961978044;
 
-    private EstacionesMetereologicas estacionesMetereologicas1 = new EstacionesMetereologicas(nombre, municipio, direccion, latitud, longitud);
-    private EstacionesMetereologicas estacionesMetereologicas2 = new EstacionesMetereologicas("AGURAIN");
-    private EstacionesMetereologicas estacionesMetereologicas3 = new EstacionesMetereologicas();
+    private EstacionesMeteorologicas estacionesMetereologicas1 = new EstacionesMeteorologicas(nombre, municipio, direccion, latitud, longitud);
+    private EstacionesMeteorologicas estacionesMetereologicas2 = new EstacionesMeteorologicas("AGURAIN");
+    private EstacionesMeteorologicas estacionesMetereologicas3 = new EstacionesMeteorologicas();
     
     @Test
     public void ConstructorLlenoTest() {
