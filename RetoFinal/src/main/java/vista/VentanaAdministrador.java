@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -11,6 +15,7 @@ import javax.swing.JFrame;
 import modelo.Administrador;
 import modelo.CalidadAire;
 import modelo.Municipios;
+import modelo.InsertarDatosAtmosfericos;
 
 import javax.swing.JRadioButton;
 
@@ -51,6 +56,12 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 	Administrador admin = null;
 	JScrollPane scrollPane;
 	static JList list;
+
+	InsertarDatosAtmosfericos iDA = new InsertarDatosAtmosfericos();
+	CalidadAire[] datosAtmosfericos = iDA.ObtenerDatosAtmosfericos();
+	Double[] datos = new Double[datosAtmosfericos.length];
+	String[] estacion = new String[datosAtmosfericos.length];
+	String[] fechaHora = new String[datosAtmosfericos.length];
 
 	// constructor
 	public VentanaAdministrador(Socket s, String nombre) throws IOException {
@@ -152,7 +163,6 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 		DefaultListModel modelo = new DefaultListModel();
 
 		if (hql.get(0).getClass().toString().contentEquals("class modelo.CalidadAire")) {
-
 
 			modelo.addElement(hql.get(0));
 			modelo.addElement(((CalidadAire) modelo.getElementAt(0)).getNomEstMet());
@@ -266,7 +276,13 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 			btnTiempo.setEnabled(false);
 			btninfo.setEnabled(true);
 		} else if (e.getSource() == btnRanking) {
-			// admin.enviarMensaje("CONSULTA--> " + consultaRanking);
+//============================================================================	
+
+			DefaultListModel modelo = new DefaultListModel();
+			modelo.addElement("Elige criterio de calidad de aire");
+			list.setModel(modelo);
+
+// ============================================================================
 		}
 		if (e.getSource() == radiobutonComgm3) {
 			radiobutonCO8hmgm3.setSelected(false);
@@ -276,9 +292,33 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 			radiobutonPM10gm3.setSelected(false);
 			radiobutonPM25gm3.setSelected(false);
 			radiobutonSO2gm3.setSelected(false);
-			if (!radiobutonComgm3.isSelected()) {
+			if (!radiobutonComgm3.isSelected())
 				radiobutonComgm3.setSelected(true);
+
+			DefaultListModel modelo = new DefaultListModel();
+			modelo.addElement(""); // Limpia el Jlist
+
+			String num = "", num2 = "";
+			for (int i = 0; i < datosAtmosfericos.length; i++) {
+				if (!datosAtmosfericos[i].getComgm3().isEmpty()) {
+					num = datosAtmosfericos[i].getComgm3();
+					for (int j = 0; j < num.length(); j++) {
+						if (num.charAt(j) == ',')
+							num2 += ".";
+						else
+							num2 += num.charAt(j);
+					}
+					datos[i] = Double.parseDouble(num2);
+					estacion[i] = datosAtmosfericos[i].getNomEstMet();
+					fechaHora[i] = datosAtmosfericos[i].getFechaHora();
+				} else {
+					datos[i] = 0.0;
+				}
+				num = "";
+				num2 = "";
 			}
+
+			list.setModel(obtenerTop(datos, estacion, fechaHora, "Comgm3"));
 
 		}
 		if (e.getSource() == radiobutonCO8hmgm3) {
@@ -289,10 +329,29 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 			radiobutonPM10gm3.setSelected(false);
 			radiobutonPM25gm3.setSelected(false);
 			radiobutonSO2gm3.setSelected(false);
-			if (!radiobutonCO8hmgm3.isSelected()) {
+			if (!radiobutonCO8hmgm3.isSelected()) 
 				radiobutonCO8hmgm3.setSelected(true);
+			
+			String num = "", num2 = "";
+			for (int i = 0; i < datosAtmosfericos.length; i++) {
+				if (!datosAtmosfericos[i].getCo8hmgm3().isEmpty()) {
+					num = datosAtmosfericos[i].getCo8hmgm3();
+					for (int j = 0; j < num.length(); j++) {
+						if (num.charAt(j) == ',')
+							num2 += ".";
+						else
+							num2 += num.charAt(j);
+					}
+					datos[i] = Double.parseDouble(num2);
+					estacion[i] = datosAtmosfericos[i].getNomEstMet();
+					fechaHora[i] = datosAtmosfericos[i].getFechaHora();
+				} else {
+					datos[i] = 0.0;
+				}
+				num = "";
+				num2 = "";
 			}
-
+			list.setModel(obtenerTop(datos, estacion, fechaHora, "CO8hmgm3"));			
 		}
 		if (e.getSource() == radiobutonNogm3) {
 			radiobutonComgm3.setSelected(false);
@@ -302,10 +361,30 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 			radiobutonPM10gm3.setSelected(false);
 			radiobutonPM25gm3.setSelected(false);
 			radiobutonSO2gm3.setSelected(false);
-			if (!radiobutonNogm3.isSelected()) {
-				radiobutonNogm3.setSelected(true);
+			if (!radiobutonNogm3.isSelected()) 
+				radiobutonNogm3.setSelected(true);	
+			
+			String num = "", num2 = "";
+			for (int i = 0; i < datosAtmosfericos.length; i++) {
+				if (!datosAtmosfericos[i].getNogm3().isEmpty()) {
+					num = datosAtmosfericos[i].getNogm3();
+					for (int j = 0; j < num.length(); j++) {
+						if (num.charAt(j) == ',')
+							num2 += ".";
+						else
+							num2 += num.charAt(j);
+					}
+					datos[i] = Double.parseDouble(num2);
+					estacion[i] = datosAtmosfericos[i].getNomEstMet();
+					fechaHora[i] = datosAtmosfericos[i].getFechaHora();
+				} else {
+					datos[i] = 0.0;
+				}
+				num = "";
+				num2 = "";
 			}
-
+			list.setModel(obtenerTop(datos, estacion, fechaHora, "Nogm3"));
+			
 		}
 		if (e.getSource() == radiobutonNO2gm3) {
 			radiobutonComgm3.setSelected(false);
@@ -315,10 +394,29 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 			radiobutonPM10gm3.setSelected(false);
 			radiobutonPM25gm3.setSelected(false);
 			radiobutonSO2gm3.setSelected(false);
-			if (!radiobutonNO2gm3.isSelected()) {
+			if (!radiobutonNO2gm3.isSelected()) 
 				radiobutonNO2gm3.setSelected(true);
+			
+			String num = "", num2 = "";
+			for (int i = 0; i < datosAtmosfericos.length; i++) {
+				if (!datosAtmosfericos[i].getNo2gm3().isEmpty()) {
+					num = datosAtmosfericos[i].getNo2gm3();
+					for (int j = 0; j < num.length(); j++) {
+						if (num.charAt(j) == ',')
+							num2 += ".";
+						else
+							num2 += num.charAt(j);
+					}
+					datos[i] = Double.parseDouble(num2);
+					estacion[i] = datosAtmosfericos[i].getNomEstMet();
+					fechaHora[i] = datosAtmosfericos[i].getFechaHora();
+				} else {
+					datos[i] = 0.0;
+				}
+				num = "";
+				num2 = "";
 			}
-
+			list.setModel(obtenerTop(datos, estacion, fechaHora, "NO2gm3"));	
 		}
 		if (e.getSource() == radiobutonNOXgm3) {
 			radiobutonComgm3.setSelected(false);
@@ -328,10 +426,29 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 			radiobutonPM10gm3.setSelected(false);
 			radiobutonPM25gm3.setSelected(false);
 			radiobutonSO2gm3.setSelected(false);
-			if (!radiobutonNOXgm3.isSelected()) {
+			if (!radiobutonNOXgm3.isSelected()) 
 				radiobutonNOXgm3.setSelected(true);
+			
+			String num = "", num2 = "";
+			for (int i = 0; i < datosAtmosfericos.length; i++) {
+				if (!datosAtmosfericos[i].getNoxgm3().isEmpty()) {
+					num = datosAtmosfericos[i].getNoxgm3();
+					for (int j = 0; j < num.length(); j++) {
+						if (num.charAt(j) == ',')
+							num2 += ".";
+						else
+							num2 += num.charAt(j);
+					}
+					datos[i] = Double.parseDouble(num2);
+					estacion[i] = datosAtmosfericos[i].getNomEstMet();
+					fechaHora[i] = datosAtmosfericos[i].getFechaHora();
+				} else {
+					datos[i] = 0.0;
+				}
+				num = "";
+				num2 = "";
 			}
-
+			list.setModel(obtenerTop(datos, estacion, fechaHora, "NOXgm3"));
 		}
 		if (e.getSource() == radiobutonPM10gm3) {
 			radiobutonComgm3.setSelected(false);
@@ -341,10 +458,29 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 			radiobutonCO8hmgm3.setSelected(false);
 			radiobutonPM25gm3.setSelected(false);
 			radiobutonSO2gm3.setSelected(false);
-			if (!radiobutonPM10gm3.isSelected()) {
+			if (!radiobutonPM10gm3.isSelected()) 
 				radiobutonPM10gm3.setSelected(true);
+			
+			String num = "", num2 = "";
+			for (int i = 0; i < datosAtmosfericos.length; i++) {
+				if (!datosAtmosfericos[i].getPm10gm3().isEmpty()) {
+					num = datosAtmosfericos[i].getPm10gm3();
+					for (int j = 0; j < num.length(); j++) {
+						if (num.charAt(j) == ',')
+							num2 += ".";
+						else
+							num2 += num.charAt(j);
+					}
+					datos[i] = Double.parseDouble(num2);
+					estacion[i] = datosAtmosfericos[i].getNomEstMet();
+					fechaHora[i] = datosAtmosfericos[i].getFechaHora();
+				} else {
+					datos[i] = 0.0;
+				}
+				num = "";
+				num2 = "";
 			}
-
+			list.setModel(obtenerTop(datos, estacion, fechaHora, "PM10gm3"));
 		}
 		if (e.getSource() == radiobutonPM25gm3) {
 			radiobutonComgm3.setSelected(false);
@@ -354,10 +490,29 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 			radiobutonPM10gm3.setSelected(false);
 			radiobutonCO8hmgm3.setSelected(false);
 			radiobutonSO2gm3.setSelected(false);
-			if (!radiobutonPM25gm3.isSelected()) {
+			if (!radiobutonPM25gm3.isSelected()) 
 				radiobutonPM25gm3.setSelected(true);
+			
+			String num = "", num2 = "";
+			for (int i = 0; i < datosAtmosfericos.length; i++) {
+				if (!datosAtmosfericos[i].getPm25gm3().isEmpty()) {
+					num = datosAtmosfericos[i].getPm25gm3();
+					for (int j = 0; j < num.length(); j++) {
+						if (num.charAt(j) == ',')
+							num2 += ".";
+						else
+							num2 += num.charAt(j);
+					}
+					datos[i] = Double.parseDouble(num2);
+					estacion[i] = datosAtmosfericos[i].getNomEstMet();
+					fechaHora[i] = datosAtmosfericos[i].getFechaHora();
+				} else {
+					datos[i] = 0.0;
+				}
+				num = "";
+				num2 = "";
 			}
-
+			list.setModel(obtenerTop(datos, estacion, fechaHora, "PM25gm3"));
 		}
 		if (e.getSource() == radiobutonSO2gm3) {
 			radiobutonComgm3.setSelected(false);
@@ -367,14 +522,58 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 			radiobutonPM10gm3.setSelected(false);
 			radiobutonPM25gm3.setSelected(false);
 			radiobutonSO2gm3.setSelected(false);
-			if (!radiobutonSO2gm3.isSelected()) {
+			if (!radiobutonSO2gm3.isSelected()) 
 				radiobutonSO2gm3.setSelected(true);
+			
+			String num = "", num2 = "";
+			for (int i = 0; i < datosAtmosfericos.length; i++) {
+				if (!datosAtmosfericos[i].getSo2gm3().isEmpty()) {
+					num = datosAtmosfericos[i].getSo2gm3();
+					for (int j = 0; j < num.length(); j++) {
+						if (num.charAt(j) == ',')
+							num2 += ".";
+						else
+							num2 += num.charAt(j);
+					}
+					datos[i] = Double.parseDouble(num2);
+					estacion[i] = datosAtmosfericos[i].getNomEstMet();
+					fechaHora[i] = datosAtmosfericos[i].getFechaHora();
+				} else {
+					datos[i] = 0.0;
+				}
+				num = "";
+				num2 = "";
 			}
-
+			list.setModel(obtenerTop(datos, estacion, fechaHora, "SO2gm3"));
 		}
 	}
 
 	public void stateChanged(ChangeEvent e) {
 
+	}
+
+	public DefaultListModel obtenerTop(Double[] datos, String[] estacion, String[] fechaHora, String medicion) {
+		DefaultListModel modelo = new DefaultListModel();
+		modelo.addElement(""); // Limpia el Jlist
+
+		double max = datos[0];
+		int posicion = 0;
+		for (int i = 1; i < datos.length; i++) { // Busco el máximo y guardo su posición para recuperar el nombre y
+													// la hora
+			if (datos[i] > max) {
+				max = datos[i];
+				posicion = i;
+			}
+		}
+
+		modelo.addElement("TOP EUSKADI " + medicion);
+		modelo.addElement("\n");
+		modelo.addElement("+-----------------------------------------+");
+		modelo.addElement(" Estación --> " + estacion[posicion]);
+		modelo.addElement(" Fecha/Hora --> " + fechaHora[posicion]);
+		modelo.addElement(" Medición --> " + datos[posicion]);
+		modelo.addElement("+-----------------------------------------+");
+
+		return modelo;
 	}
 }

@@ -75,11 +75,23 @@ public class InsertarDatosAtmosfericos {
 			String direccionArchivoEntrada = "./archivos/calidadAire/" + estacionesMeteo[num] + ".xml";
 
 			String xml = obj.leerArchivo(direccionArchivoEntrada); // Lee el archivo
-			CalidadAire datosMeteo = extraerDatosCalidadAire(xml, "</" + estacionesMeteo[num] + ">", intento); // Extrae los datos y crea los objetos
-			while(datosMeteo.getNogm3() == null) {
+			CalidadAire datosMeteo = extraerDatosCalidadAire(xml, "</" + estacionesMeteo[num] + ">", intento); // Extrae
+																												// los
+																												// datos
+																												// y
+																												// crea
+																												// los
+																												// objetos
+			while (datosMeteo.getNogm3() == null) {
 				System.out.println("Sin datos --> rastrear el siguiente nodo");
-				datosMeteo = extraerDatosCalidadAire(xml, "</"+estacionesMeteo[0]+">", intento + 1); // Extrae los datos de una hora anterior y crea los objetos
-			} 
+				datosMeteo = extraerDatosCalidadAire(xml, "</" + estacionesMeteo[0] + ">", intento + 1); // Extrae los
+																											// datos de
+																											// una hora
+																											// anterior
+																											// y crea
+																											// los
+																											// objetos
+			}
 
 			objetos[num] = datosMeteo;
 
@@ -165,11 +177,99 @@ public class InsertarDatosAtmosfericos {
 				dato = corte2[0];
 			}
 		}
-		
+
 		if (dato != null)
 			return dato;
 		else
 			return "SIN DATO";
 	}
 
+	public CalidadAire[] ObtenerDatosAtmosfericos() {
+		InsertarDatosGeograficos obj = new InsertarDatosGeograficos(); // Instancia para llamar a los métodos de la
+																		// clase InsertarDatosGeograficos
+		CalidadAire[] objetos = new CalidadAire[estacionesMeteo.length];
+
+		// Obtengo el array con los nombres de las estaciones
+		String[] nombreAux = null;
+		String nombreConEspacios = "";
+		String nombre;
+		String archivo = obj.leerArchivo("./archivos/estaciones.xml");
+		int intento = 0;
+
+		String[] estaciones = archivo.split("</estación>");
+		for (int i = 0; i < estaciones.length - 1; i++) { // Recorre cada estación
+			nombre = "";
+			nombreAux = estaciones[i].split("<Name>");
+
+			// Nombre
+			for (int j = 0; j < nombreAux.length; j++) {
+				if (nombreAux[j].contains("</Name>")) {
+					nombreConEspacios = nombreAux[j].substring(0, nombreAux[j].length() - 7);
+				}
+			}
+
+			// Tratamiento de los nombres:
+			// - Sustituyo los espacios por guiones bajos
+			// - Sustituyo 'Ñ' por 'N'
+			// - Quito paréntesis '(' y ')'
+			// - Quito caracter 'ª'
+			// - Quito caracter '.'
+			for (int k = 0; k < nombreConEspacios.length(); k++) { // Sustituyo los espacios por guiones bajos
+				if (nombreConEspacios.charAt(k) == ' ') {
+					nombre += "_";
+				} else {
+					nombre += Character.toString(nombreConEspacios.charAt(k));
+				}
+				if (nombreConEspacios.charAt(k) == 'Ñ') {
+					nombre = nombre.substring(0, nombre.length() - 1);
+					nombre += "N";
+				}
+				if (nombreConEspacios.charAt(k) == '(') {
+					nombre = nombre.substring(0, nombre.length() - 1);
+
+				}
+				if (nombreConEspacios.charAt(k) == ')') {
+					nombre = nombre.substring(0, nombre.length() - 1);
+				}
+				if (nombreConEspacios.charAt(k) == 'ª') {
+					nombre = nombre.substring(0, nombre.length() - 1);
+				}
+				if (nombreConEspacios.charAt(k) == '.') {
+					nombre = nombre.substring(0, nombre.length() - 1);
+				}
+			}
+
+			estacionesMeteo[i] = nombre;
+		}
+
+		// Lee archivos --> extrae datos --> los ingresa en BBDD
+		for (int num = 0; num < estacionesMeteo.length; num++) {
+			intento = 0;
+			String direccionArchivoEntrada = "./archivos/calidadAire/" + estacionesMeteo[num] + ".xml";
+
+			String xml = obj.leerArchivo(direccionArchivoEntrada); // Lee el archivo
+			CalidadAire datosMeteo = extraerDatosCalidadAire(xml, "</" + estacionesMeteo[num] + ">", intento); // Extrae
+																												// los
+																												// datos
+																												// y
+																												// crea
+																												// los
+																												// objetos
+			while (datosMeteo.getNogm3() == null) {
+				System.out.println("Sin datos --> rastrear el siguiente nodo");
+				datosMeteo = extraerDatosCalidadAire(xml, "</" + estacionesMeteo[0] + ">", intento + 1); // Extrae los
+																											// datos de
+																											// una hora
+																											// anterior
+																											// y crea
+																											// los
+																											// objetos
+			}
+
+			objetos[num] = datosMeteo;
+
+		}
+		return objetos;
+
+	}
 }
